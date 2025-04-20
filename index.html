@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QR Generator Futuristik</title>
+  <title>Barcode</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     body {
@@ -85,17 +85,17 @@
   <h1>QR Code Generator</h1>
 
   <div class="container">
-    <label for="product">Nama Produk:</label>
-    <input type="text" id="product" placeholder="Contoh: Nasi Goreng Mantap" />
+    <label for="product"> </label>
+    <input type="text" id="product" placeholder="Required Input" />
 
     <div class="buttons">
       <button onclick="downloadQR()">Download</button>
-      <button onclick="printQR()">Cetak</button>
+      <button onclick="printQR()">Print QR</button>
     </div>
 
     <div id="qrcode"></div>
 
-    <button class="newQR" onclick="generateQR()">Buat QR Baru</button>
+    <button class="newQR" onclick="generateQR()">Generate</button>
   </div>
 
   <script>
