@@ -21,34 +21,39 @@
       text-shadow: 0 0 8px #0f0;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     .container {
-      background-color: #1a1a1a;
+      max-width: 400px;
+      margin: 0 auto;
       padding: 20px;
+      background-color: #111;
       border-radius: 15px;
-      box-shadow: 0 0 10px #0f0;
-      max-width: 350px;
-      width: 100%;
+      box-shadow: 0 0 15px #0f0;
     }
 
     input, button {
       width: 100%;
-      padding: 8px;
-      margin: 8px 0;
+      padding: 10px;
+      margin: 10px 0;
       border-radius: 8px;
       border: none;
       font-size: 1em;
       font-family: 'Courier New', monospace;
+      box-sizing: border-box;
     }
 
     input {
       background: #222;
       color: #0f0;
     }
-    
+
     input:focus {
-    outline: none;
-    box-shadow: 0 0 5px #0f0;
-    border: 1px solid #0f0;
+      outline: none;
+      box-shadow: 0 0 5px #0f0;
+      border: 1px solid #0f0;
     }
 
     .buttons {
