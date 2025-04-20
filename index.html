@@ -1,126 +1,143 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Hacker Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Generator Futuristik</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     body {
       background-color: #111;
-      color: #00ff66;
-      font-family: 'Share Tech Mono', monospace;
-      text-align: center;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 20px;
     }
 
     h1 {
+      color: #00ff00;
+      text-shadow: 0 0 8px #0f0;
+    }
+
+    .container {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #0f0;
+      max-width: 350px;
+      width: 100%;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      font-family: 'Courier New', monospace;
+    }
+
+    input {
+      background: #222;
       color: #0f0;
-      text-shadow: 0 0 10px #00ff66;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .buttons button {
+      width: 48%;
+      cursor: pointer;
+      background-color: #0f0;
+      color: #000;
+      transition: 0.3s;
+    }
+
+    .buttons button:hover {
+      background-color: #0c0;
     }
 
     #qrcode {
-      margin: 20px auto;
+      background: #fff;
       padding: 10px;
+      border-radius: 10px;
+      margin: 20px auto;
       width: fit-content;
-      background: radial-gradient(circle, #003300, #000);
-      border: 2px solid #0f0;
-      box-shadow: 0 0 10px #0f0;
     }
 
-    button {
-      margin: 10px 5px;
-      padding: 10px 20px;
-      background-color: #003300;
-      border: 1px solid #00ff66;
-      color: #00ff66;
-      font-size: 1em;
-      cursor: pointer;
-      box-shadow: 0 0 8px #00ff66;
+    .newQR {
+      margin-top: 10px;
+      background-color: #009900;
     }
 
-    button:hover {
-      background-color: #004400;
-      box-shadow: 0 0 15px #00ff66;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.5em; }
+    canvas {
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
 
   <h1>QR Code Generator</h1>
-  <div id="qrcode"></div>
 
-  <div>
-    <button onclick="generateQR()">Buat QR Baru</button>
-    <button onclick="downloadQR()">Download</button>
-    <button onclick="printQR()">Cetak</button>
+  <div class="container">
+    <label for="product">Nama Produk:</label>
+    <input type="text" id="product" placeholder="Contoh: Nasi Goreng Mantap" />
+
+    <div class="buttons">
+      <button onclick="downloadQR()">Download</button>
+      <button onclick="printQR()">Cetak</button>
+    </div>
+
+    <div id="qrcode"></div>
+
+    <button class="newQR" onclick="generateQR()">Buat QR Baru</button>
   </div>
 
   <script>
-    let lastCanvas;
-
     function generateQR() {
-      const container = document.getElementById("qrcode");
-      container.innerHTML = "";
-
-      const kodeProduk = "PRD-" + Math.floor(Math.random() * 100000);
-      const tanggalProduksi = new Date().toLocaleDateString('id-ID');
-      const waktuAmbil = new Date().toLocaleTimeString('id-ID');
-      const pemilik = "Antero Familia";
-
+      const qrcodeEl = document.getElementById("qrcode");
+      qrcodeEl.innerHTML = "";
+      const produk = document.getElementById("product").value || "Produk Tanpa Nama";
       const data = {
-        kodeProduk,
-        tanggalProduksi,
-        waktuAmbil,
-        pemilik
+        produk,
+        kode: Math.random().toString(36).substring(2, 8).toUpperCase(),
+        tglProduksi: new Date().toLocaleDateString("id-ID"),
+        waktu: new Date().toLocaleTimeString("id-ID"),
+        pemilik: "Antero Food Lab"
       };
 
-      const qrData = JSON.stringify(data);
-
-      QRCode.toCanvas(document.createElement('canvas'), qrData, {
+      new QRCode(qrcodeEl, {
+        text: JSON.stringify(data),
         width: 256,
-        color: {
-          dark: "#00ff66",
-          light: "#00000000"
-        }
-      }, (err, canvas) => {
-        if (err) return console.error(err);
-        lastCanvas = canvas;
-        container.appendChild(canvas);
+        height: 256,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
       });
     }
 
     function downloadQR() {
-      if (!lastCanvas) return;
-      const link = document.createElement('a');
-      link.download = 'qrcode.png';
-      link.href = lastCanvas.toDataURL();
+      const canvas = document.querySelector("#qrcode canvas");
+      const link = document.createElement("a");
+      link.download = "qrcode-produk.png";
+      link.href = canvas.toDataURL("image/png");
       link.click();
     }
 
     function printQR() {
-      if (!lastCanvas) return;
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write(`
-        <html>
-        <head>
-          <title>Cetak QR</title>
-        </head>
-        <body style="text-align:center; background:#000; color:#00ff66;">
-          <h2>QR Code</h2>
-          <img src="${lastCanvas.toDataURL()}" />
-          <script>window.onload = () => window.print()</script>
-        </body>
-        </html>
-      `);
-      printWindow.document.close();
+      const canvas = document.querySelector("#qrcode canvas");
+      const win = window.open("");
+      win.document.write("<img src='" + canvas.toDataURL() + "'/>");
+      win.print();
+      win.close();
     }
 
+    // Generate pertama kali saat halaman dibuka
     window.onload = generateQR;
   </script>
 
