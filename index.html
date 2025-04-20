@@ -3,167 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Produk Antero</title>
-  <!-- Menggunakan CDN untuk QRCode.js -->
+  <title>QR Hacker Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background: #0f0f0f;
+      background-color: #111;
+      color: #00ff66;
       font-family: 'Share Tech Mono', monospace;
-      color: #00ff99;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 20px;
-      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
     }
 
-    h2 {
-      margin-bottom: 20px;
-      font-size: 2rem;
-      color: #00ffcc;
-      text-shadow: 0 0 8px #00ffcc;
-      animation: glow 2s infinite alternate;
+    h1 {
+      color: #0f0;
+      text-shadow: 0 0 10px #00ff66;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 8px #00ffcc; }
-      to { text-shadow: 0 0 16px #00ffaa; }
-    }
-
-    #qrcanvas {
-      border: 3px solid #00ff99;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #00ff99;
-      max-width: 90vw;
-      width: 300px;
-      margin-bottom: 20px;
-      background: #ffffff;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      justify-content: center;
+    #qrcode {
+      margin: 20px auto;
+      padding: 10px;
+      width: fit-content;
+      background: radial-gradient(circle, #003300, #000);
+      border: 2px solid #0f0;
+      box-shadow: 0 0 10px #0f0;
     }
 
     button {
-      background-color: #00ff99;
-      color: #000;
-      border: none;
-      border-radius: 8px;
+      margin: 10px 5px;
       padding: 10px 20px;
-      font-weight: bold;
-      font-family: 'Share Tech Mono', monospace;
+      background-color: #003300;
+      border: 1px solid #00ff66;
+      color: #00ff66;
+      font-size: 1em;
       cursor: pointer;
-      box-shadow: 0 0 8px #00ff99;
-      transition: 0.3s ease;
+      box-shadow: 0 0 8px #00ff66;
     }
 
     button:hover {
-      background-color: #00ffaa;
-      transform: scale(1.05);
+      background-color: #004400;
+      box-shadow: 0 0 15px #00ff66;
     }
 
-    @media screen and (max-width: 600px) {
-      h2 { font-size: 1.5rem; }
-      button { font-size: 0.9rem; padding: 8px 16px; }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5em; }
     }
   </style>
 </head>
 <body>
 
-  <h2>[ ANTERO QR SYSTEM ]</h2>
-  <canvas id="qrcanvas" width="256" height="256"></canvas>
+  <h1>QR Code Generator</h1>
+  <div id="qrcode"></div>
 
-  <div class="btn-group">
+  <div>
+    <button onclick="generateQR()">Buat QR Baru</button>
     <button onclick="downloadQR()">Download</button>
-    <button onclick="cetakQR()">Cetak</button>
+    <button onclick="printQR()">Cetak</button>
   </div>
 
   <script>
-    function generateKodeProduk() {
-      const prefix = "AFQ";
-      const random = Math.floor(100000 + Math.random() * 900000);
-      return `${prefix}-${random}`;
-    }
+    let lastCanvas;
 
-    function getTanggalProduksi() {
-      const now = new Date();
-      return now.toISOString().split("T")[0];
-    }
+    function generateQR() {
+      const container = document.getElementById("qrcode");
+      container.innerHTML = "";
 
-    function getWaktuAmbil() {
-      const now = new Date();
-      return now.toTimeString().split(" ")[0];
-    }
+      const kodeProduk = "PRD-" + Math.floor(Math.random() * 100000);
+      const tanggalProduksi = new Date().toLocaleDateString('id-ID');
+      const waktuAmbil = new Date().toLocaleTimeString('id-ID');
+      const pemilik = "Antero Familia";
 
-    function buatQR() {
       const data = {
-        namaProduk: "Nuklir Snack", // bisa diganti manual
-        kodeProduk: generateKodeProduk(),
-        tanggalProduksi: getTanggalProduksi(),
-        waktuPengambilan: getWaktuAmbil(),
-        pemilik: "AnteroFamilia"
+        kodeProduk,
+        tanggalProduksi,
+        waktuAmbil,
+        pemilik
       };
 
-      const json = JSON.stringify(data);
+      const qrData = JSON.stringify(data);
 
-      const qr = QRCode.create(json, { errorCorrectionLevel: 'H' });
-      const canvas = document.getElementById("qrcanvas");
-      const ctx = canvas.getContext("2d");
-
-      const size = canvas.width;
-      const cells = qr.modules;
-      const cellSize = size / cells.size;
-
-      // Gradasi hacker: hijau -> cyan
-      const gradient = ctx.createLinearGradient(0, 0, size, size);
-      gradient.addColorStop(0, "#00ff99");
-      gradient.addColorStop(1, "#00ffff");
-
-      ctx.clearRect(0, 0, size, size);
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, size, size);
-
-      ctx.fillStyle = gradient;
-      for (let r = 0; r < cells.size; r++) {
-        for (let c = 0; c < cells.size; c++) {
-          if (cells.get(r, c)) {
-            ctx.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
-          }
+      QRCode.toCanvas(document.createElement('canvas'), qrData, {
+        width: 256,
+        color: {
+          dark: "#00ff66",
+          light: "#00000000"
         }
-      }
+      }, (err, canvas) => {
+        if (err) return console.error(err);
+        lastCanvas = canvas;
+        container.appendChild(canvas);
+      });
     }
 
     function downloadQR() {
-      const canvas = document.getElementById("qrcanvas");
-      const link = document.createElement("a");
-      link.download = "antero-qr.png";
-      link.href = canvas.toDataURL("image/png");
+      if (!lastCanvas) return;
+      const link = document.createElement('a');
+      link.download = 'qrcode.png';
+      link.href = lastCanvas.toDataURL();
       link.click();
     }
 
-    function cetakQR() {
-      const canvas = document.getElementById("qrcanvas");
-      const win = window.open('', '_blank');
-      win.document.write(`<html><head><title>Cetak QR</title></head><body style="text-align:center;"><img src="${canvas.toDataURL()}" style="margin-top:40px; width:80%; max-width:300px;"></body></html>`);
-      win.document.close();
-      win.focus();
-      win.print();
-      win.close();
+    function printQR() {
+      if (!lastCanvas) return;
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+        <head>
+          <title>Cetak QR</title>
+        </head>
+        <body style="text-align:center; background:#000; color:#00ff66;">
+          <h2>QR Code</h2>
+          <img src="${lastCanvas.toDataURL()}" />
+          <script>window.onload = () => window.print()</script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
-    window.onload = buatQR;
+    window.onload = generateQR;
   </script>
 
 </body>
