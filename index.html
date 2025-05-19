@@ -1,156 +1,96 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Barcode</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hacker Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #111;
-      color: #0f0;
-      font-family: 'Courier New', monospace;
+      margin: 0;
+      background-color: #000;
+      color: #00fff7;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .hero {
+      height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding: 20px;
+      text-align: center;
+      background: linear-gradient(to bottom, #000 70%, #060606);
     }
 
-    h1 {
-      color: #00ff00;
-      text-shadow: 0 0 8px #0f0;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #111;
-      border-radius: 15px;
-      box-shadow: 0 0 15px #0f0;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: none;
-      font-size: 1em;
-      font-family: 'Courier New', monospace;
-      box-sizing: border-box;
-    }
-
-    input {
-      background: #222;
+    .prompt {
+      font-size: 1.2em;
       color: #0f0;
+      margin-bottom: 10px;
     }
 
-    input:focus {
-      outline: none;
-      box-shadow: 0 0 5px #0f0;
-      border: 1px solid #0f0;
+    .glitch-text {
+      font-size: 3em;
+      animation: glitch 1s infinite;
+      position: relative;
     }
 
-    .buttons {
-      display: flex;
-      justify-content: space-between;
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px -2px lime; }
+      50% { text-shadow: 2px -2px blue; }
+      75% { text-shadow: -2px 2px magenta; }
+      100% { text-shadow: 2px 2px red; }
     }
 
-    .buttons button {
-      width: 48%;
-      cursor: pointer;
-      background-color: #0f0;
-      color: #000;
-      transition: 0.3s;
-    }
-
-    .buttons button:hover {
-      background-color: #0c0;
-    }
-
-    #qrcode {
-      background: #fff;
-      padding: 10px;
-      border-radius: 10px;
-      margin: 20px auto;
-      width: fit-content;
-    }
-
-    .newQR {
+    .typed-text {
+      font-size: 1.3em;
       margin-top: 10px;
-      background-color: #009900;
+      color: #fff;
     }
 
-    canvas {
-      border-radius: 10px;
+    .enter-btn {
+      margin-top: 40px;
+      padding: 10px 30px;
+      font-size: 1em;
+      background: transparent;
+      border: 2px solid #00fff7;
+      color: #00fff7;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .enter-btn:hover {
+      background: #00fff7;
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <h1>QR Code Generator</h1>
-
-  <div class="container">
-    <label for="product"></label>
-    <input type="text" id="product" placeholder="Required Input" />
-
-    <div class="buttons">
-      <button onclick="downloadQR()">Download</button>
-      <button onclick="printQR()">Print QR</button>
-    </div>
-
-    <div id="qrcode"></div>
-
-    <button class="newQR" onclick="generateQR()">Generate</button>
+<section class="hero">
+  <div class="prompt">> Initializing Portfolio...</div>
+  <h1 class="glitch-text">CYBERDEV_01</h1>
+  <div class="typed-text">
+    <span id="typed"></span>
   </div>
+  <button class="enter-btn">Enter Portfolio</button>
+</section>
 
-  <script>
-    function generateQR() {
-      const qrcodeEl = document.getElementById("qrcode");
-      qrcodeEl.innerHTML = "";
-      const produk = document.getElementById("product").value || "Produk Tanpa Nama";
-      const data = {
-        produk,
-        kode: Math.random().toString(36).substring(2, 8).toUpperCase(),
-        tglProduksi: new Date().toLocaleDateString("id-ID"),
-        waktu: new Date().toLocaleTimeString("id-ID"),
-        pemilik: "Antero Food Lab"
-      };
-
-      new QRCode(qrcodeEl, {
-        text: JSON.stringify(data),
-        width: 256,
-        height: 256,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    }
-
-    function downloadQR() {
-      const canvas = document.querySelector("#qrcode canvas");
-      const link = document.createElement("a");
-      link.download = "qrcode-produk.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    }
-
-    function printQR() {
-      const canvas = document.querySelector("#qrcode canvas");
-      const win = window.open("");
-      win.document.write("<img src='" + canvas.toDataURL() + "'/>");
-      win.print();
-      win.close();
-    }
-
-    // Generate pertama kali saat halaman dibuka
-    window.onload = generateQR;
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+  new Typed("#typed", {
+    strings: [
+      "Full-stack Developer.",
+      "Crypto Miner.",
+      "Dark Web Explorer.",
+      "Terminal Artist."
+    ],
+    typeSpeed: 50,
+    backSpeed: 30,
+    loop: true
+  });
+</script>
 
 </body>
 </html>
