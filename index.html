@@ -1,190 +1,461 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hacker Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      color: #00ff00;
-      font-family: 'Share Tech Mono', monospace;
-      overflow-x: hidden;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hacker Futuristic Portfolio</title>
+<link
+  href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: #000;
+    color: #0f0;
+    font-family: 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+  a {
+    color: #0f0;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  /* Grain overlay */
+  .grain {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+    opacity: 0.07;
+    z-index: 9999;
+  }
+  /* Glitch effect */
+  .glitch {
+    position: relative;
+    color: #0f0;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+  }
+  .glitch::before {
+    animation: glitchTop 2s infinite linear alternate-reverse;
+    left: 2px;
+    text-shadow: -2px 0 #00ffea;
+  }
+  .glitch::after {
+    animation: glitchBottom 2s infinite linear alternate-reverse;
+    left: -2px;
+    text-shadow: -2px 0 #ff00c8;
+  }
+  @keyframes glitchTop {
+    0% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
     }
-
-    section {
-      padding: 80px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    10% {
+      clip: rect(0, 9999px, 45px, 0);
+      transform: translate(-2px, -2px);
     }
-
-    .grain {
-      pointer-events: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-      opacity: 0.05;
-      z-index: 10000;
+    20% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
     }
-
-    .profile {
-      margin-top: 60px;
+    30% {
+      clip: rect(20px, 9999px, 60px, 0);
+      transform: translate(-2px, 0);
     }
-
-    .profile img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid #00ff00;
-      margin-bottom: 10px;
+    40% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
     }
-
-    .social-icons a {
-      color: #00ff00;
-      margin: 0 10px;
-      font-size: 1.5em;
-      text-decoration: none;
+    50% {
+      clip: rect(10px, 9999px, 35px, 0);
+      transform: translate(1px, -1px);
     }
-
+    60% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
+    }
+    100% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
+    }
+  }
+  @keyframes glitchBottom {
+    0% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
+    }
+    10% {
+      clip: rect(40px, 9999px, 80px, 0);
+      transform: translate(2px, 2px);
+    }
+    20% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
+    }
+    30% {
+      clip: rect(30px, 9999px, 55px, 0);
+      transform: translate(2px, 1px);
+    }
+    40% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
+    }
+    50% {
+      clip: rect(15px, 9999px, 40px, 0);
+      transform: translate(-1px, 1px);
+    }
+    60% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
+    }
+    100% {
+      clip: rect(0, 9999px, 0, 0);
+      transform: translate(0);
+    }
+  }
+  /* Container */
+  .container {
+    max-width: 960px;
+    margin: auto;
+    padding: 20px;
+  }
+  /* Profile */
+  .profile {
+    margin: 40px 0 20px;
+    text-align: center;
+  }
+  .profile img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid #0f0;
+    object-fit: cover;
+    filter: drop-shadow(0 0 3px #0f0);
+  }
+  .profile h1 {
+    margin: 15px 0 10px;
+    font-size: 2.5rem;
+    letter-spacing: 0.15em;
+  }
+  .social-icons {
+    margin-top: 8px;
+  }
+  .social-icons a {
+    margin: 0 10px;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+  }
+  .social-icons a:hover {
+    color: #00fff7;
+  }
+  /* About */
+  .about {
+    margin: 60px 0 40px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  /* Skills */
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+  .skill {
+    position: relative;
+    width: 80px;
+    height: 150px;
+    background: #010;
+    border: 2px solid #0f0;
+    border-radius: 12px;
+    box-shadow: 0 0 8px #0f0 inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    cursor: default;
+  }
+  .skill-name {
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  /* Animated liquid fill effect (like chemistry vial) */
+  .liquid {
+    position: relative;
+    width: 40px;
+    height: 100px;
+    background: #003300;
+    border: 1px solid #0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 6px #0f0 inset;
+  }
+  .liquid-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(180deg, #00ff00, #004400);
+    animation-fill-mode: forwards;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 0 15px #0f0;
+  }
+  .percentage {
+    margin-top: 8px;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+  /* Projects */
+  .projects {
+    margin: 60px 0 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 25px;
+  }
+  .project-card {
+    background: #010;
+    border: 2px solid #0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 12px #0f0 inset;
+    padding: 12px;
+    transition: box-shadow 0.3s ease;
+  }
+  .project-card:hover {
+    box-shadow: 0 0 20px #00fff7;
+  }
+  .project-card img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    object-fit: cover;
+    height: 140px;
+  }
+  .project-card h3 {
+    margin: 0 0 8px;
+  }
+  .project-card button {
+    background: transparent;
+    border: 2px solid #0f0;
+    color: #0f0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease;
+  }
+  .project-card button:hover {
+    background-color: #00ff00a0;
+  }
+  /* Contact */
+  .contact {
+    margin: 60px 0 40px;
+  }
+  .contact h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  form {
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  input,
+  textarea {
+    background: #000;
+    border: 2px solid #0f0;
+    border-radius: 6px;
+    color: #0f0;
+    padding: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #00fff7;
+    box-shadow: 0 0 8px #00fff7;
+  }
+  button[type='submit'] {
+    background: transparent;
+    border: 2px solid #0f0;
+    color: #0f0;
+    padding: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease;
+  }
+  button[type='submit']:hover {
+    background-color: #00ff00a0;
+  }
+  /* Responsive */
+  @media (max-width: 600px) {
     .skills {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
       gap: 15px;
-      max-width: 600px;
     }
-
     .skill {
-      background: #001100;
-      padding: 10px 20px;
-      border: 1px solid #00ff00;
-      border-radius: 5px;
+      width: 65px;
+      height: 130px;
     }
-
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 1000px;
-      margin-top: 40px;
+    .liquid {
+      width: 30px;
+      height: 80px;
     }
-
-    .project-card {
-      background: #001100;
-      border: 1px solid #00ff00;
-      padding: 15px;
-      border-radius: 10px;
-    }
-
     .project-card img {
-      width: 100%;
-      border-radius: 5px;
-      margin-bottom: 10px;
+      height: 110px;
     }
-
-    .project-card button {
-      background: transparent;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-
-    .contact {
-      background: #000;
-      padding: 40px;
-      border-top: 2px solid #00ff00;
-    }
-
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 400px;
-      margin: auto;
-    }
-
-    .contact input, .contact textarea {
-      padding: 10px;
-      background: #001100;
-      border: 1px solid #00ff00;
-      color: #00ff00;
-      resize: none;
-    }
-
-    .contact button {
-      background: transparent;
-      color: #00ff00;
-      border: 1px solid #00ff00;
-      padding: 10px;
-      cursor: pointer;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <div class="grain"></div>
+  <div class="container">
+    <!-- Profile -->
+    <section class="profile" id="home">
+      <img src="https://i.pravatar.cc/140" alt="Profile Photo" />
+      <h1 class="glitch" data-text="YOUR NAME">YOUR NAME</h1>
+      <div class="social-icons">
+        <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="mailto:your.email@example.com" aria-label="Email"
+          ><i class="fas fa-envelope"></i
+        ></a>
+      </div>
+    </section>
 
-  <section class="profile">
-    <img src="https://via.placeholder.com/150" alt="Profile Photo" />
-    <h1>CYBERDEV_01</h1>
-    <div class="social-icons">
-      <a href="#"><i class="fab fa-github"></i></a>
-      <a href="#"><i class="fab fa-linkedin"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-telegram"></i></a>
-    </div>
-  </section>
+    <!-- About -->
+    <section class="about" id="about">
+      <h2 class="glitch" data-text="ABOUT ME">ABOUT ME</h2>
+      <p>
+        Saya adalah developer front-end dengan passion di bidang hacking,
+        keamanan siber, dan teknologi futuristik. Menguasai HTML, CSS, dan
+        JavaScript dengan berbagai framework modern.
+      </p>
+    </section>
 
-  <section class="about">
-    <h2>&gt; whoami</h2>
-    <p>I am a full-stack developer with interest in crypto, hacker systems, and futuristic design. I build tools and digital art in terminal aesthetics.</p>
-  </section>
+    <!-- Skills -->
+    <section class="skills" id="skills">
+      <h2 class="glitch" data-text="SKILLS" style="width: 100%; text-align: center; margin-bottom: 30px;">SKILLS</h2>
+      <div class="skill" data-percent="90">
+        <div class="liquid">
+          <div class="liquid-fill"></div>
+        </div>
+        <div class="skill-name">HTML</div>
+        <div class="percentage">0%</div>
+      </div>
+      <div class="skill" data-percent="85">
+        <div class="liquid">
+          <div class="liquid-fill"></div>
+        </div>
+        <div class="skill-name">CSS</div>
+        <div class="percentage">0%</div>
+      </div>
+      <div class="skill" data-percent="75">
+        <div class="liquid">
+          <div class="liquid-fill"></div>
+        </div>
+        <div class="skill-name">JavaScript</div>
+        <div class="percentage">0%</div>
+      </div>
+      <div class="skill" data-percent="60">
+        <div class="liquid">
+          <div class="liquid-fill"></div>
+        </div>
+        <div class="skill-name">Python</div>
+        <div class="percentage">0%</div>
+      </div>
+    </section>
 
-  <section class="skills">
-    <div class="skill">HTML</div>
-    <div class="skill">CSS</div>
-    <div class="skill">JavaScript</div>
-    <div class="skill">Python</div>
-    <div class="skill">Node.js</div>
-    <div class="skill">Git</div>
-    <div class="skill">Linux</div>
-  </section>
+    <!-- Projects -->
+    <section class="projects" id="projects">
+      <h2 class="glitch" data-text="PROJECTS" style="width: 100%; text-align: center; margin-bottom: 30px;">PROJECTS</h2>
+      <div class="project-card">
+        <img src="https://placeimg.com/640/480/tech" alt="Project 1" />
+        <h3>Crypto Mining Dashboard</h3>
+        <button onclick="window.open('https://github.com/yourusername/cryptomining','_blank')">View Project</button>
+      </div>
+      <div class="project-card">
+        <div class="project-card">
+        <img src="https://placeimg.com/640/480/tech" alt="Project 2" />
+        <h3>Interactive Hacker Portfolio</h3>
+        <button onclick="window.open('https://github.com/yourusername/hackerportfolio', '_blank')">View Project</button>
+      </div>
+      <div class="project-card">
+        <img src="https://placeimg.com/640/480/arch" alt="Project 3" />
+        <h3>Social Inequality Analysis</h3>
+        <button onclick="window.open('https://github.com/yourusername/socialanalysis', '_blank')">View Project</button>
+      </div>
+    </section>
 
-  <section class="projects">
-    <div class="project-card">
-      <img src="https://via.placeholder.com/300x150" alt="Project Image">
-      <h3>Crypto Mining Dashboard</h3>
-      <button>View Project</button>
-    </div>
-    <div class="project-card">
-      <img src="https://via.placeholder.com/300x150" alt="Project Image">
-      <h3>QR Generator</h3>
-      <button>View Project</button>
-    </div>
-    <div class="project-card">
-      <img src="https://via.placeholder.com/300x150" alt="Project Image">
-      <h3>Dark Map Tracker</h3>
-      <button>View Project</button>
-    </div>
-  </section>
+    <!-- Contact -->
+    <section class="contact" id="contact">
+      <h2 class="glitch" data-text="CONTACT ME">CONTACT ME</h2>
+      <form onsubmit="event.preventDefault(); alert('Thank you for reaching out!'); this.reset();">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </div>
 
-  <section class="contact">
-    <h2>&gt; Contact Me</h2>
-    <form>
-      <input type="text" placeholder="Name" required />
-      <input type="email" placeholder="Email" required />
-      <textarea placeholder="Your message" rows="5"></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </section>
+  <script>
+    // Skill liquid fill animation with percentage counting
+    document.querySelectorAll('.skill').forEach((skill) => {
+      const liquidFill = skill.querySelector('.liquid-fill');
+      const percentageElem = skill.querySelector('.percentage');
+      const targetPercent = parseInt(skill.getAttribute('data-percent'), 10);
+
+      let currentPercent = 0;
+      liquidFill.style.height = '0%';
+
+      const interval = setInterval(() => {
+        if (currentPercent >= targetPercent) {
+          clearInterval(interval);
+          return;
+        }
+        currentPercent++;
+        liquidFill.style.height = currentPercent + '%';
+        percentageElem.textContent = currentPercent + '%';
+      }, 20);
+    });
+  </script>
 </body>
 </html>
