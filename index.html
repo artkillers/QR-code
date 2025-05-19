@@ -5,432 +5,412 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Hacker Futuristic Portfolio</title>
 <link
-  href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
-  rel="stylesheet"
-/>
-<link
-  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  rel="stylesheet"
 />
 <style>
-  /* Reset & base */
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+  /* Reset */
   * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
+
   body {
-    margin: 0;
-    background: #000;
-    color: #0f0;
+    background: #010a0a;
+    color: #00ff00;
     font-family: 'Share Tech Mono', monospace;
     overflow-x: hidden;
-    line-height: 1.5;
   }
-  a {
-    color: #0f0;
-    text-decoration: none;
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
   }
-  a:hover {
-    text-decoration: underline;
-  }
-  /* Grain overlay */
-  .grain {
-    pointer-events: none;
-    position: fixed;
-    inset: 0;
-    background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-    opacity: 0.07;
-    z-index: 9999;
-  }
-  /* Glitch effect */
+
+  /* Glitch effect for headings */
   .glitch {
     position: relative;
-    color: #0f0;
+    color: #00ff00;
+    font-size: 2.8rem;
     font-weight: 700;
-    font-size: 2rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    user-select: none;
   }
   .glitch::before,
   .glitch::after {
     content: attr(data-text);
     position: absolute;
     left: 0;
-    right: 0;
-    overflow: hidden;
-    clip: rect(0, 900px, 0, 0);
+    width: 100%;
+    opacity: 0.8;
+    clip-path: var(--clip);
   }
   .glitch::before {
-    animation: glitchTop 2s infinite linear alternate-reverse;
-    left: 2px;
-    text-shadow: -2px 0 #00ffea;
+    animation: glitchTop 2s infinite linear;
+    color: #00ff00;
+    z-index: -1;
   }
   .glitch::after {
-    animation: glitchBottom 2s infinite linear alternate-reverse;
-    left: -2px;
-    text-shadow: -2px 0 #ff00c8;
+    animation: glitchBottom 2s infinite linear;
+    color: #00ff00;
+    z-index: -2;
   }
+
   @keyframes glitchTop {
     0% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
-    }
-    10% {
-      clip: rect(0, 9999px, 45px, 0);
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
       transform: translate(-2px, -2px);
     }
-    20% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
-    }
-    30% {
-      clip: rect(20px, 9999px, 60px, 0);
-      transform: translate(-2px, 0);
-    }
-    40% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
-    }
     50% {
-      clip: rect(10px, 9999px, 35px, 0);
-      transform: translate(1px, -1px);
-    }
-    60% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%);
+      transform: translate(2px, 2px);
     }
     100% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+      transform: translate(-2px, -2px);
     }
   }
   @keyframes glitchBottom {
     0% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
-    }
-    10% {
-      clip: rect(40px, 9999px, 80px, 0);
+      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
       transform: translate(2px, 2px);
     }
-    20% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
-    }
-    30% {
-      clip: rect(30px, 9999px, 55px, 0);
-      transform: translate(2px, 1px);
-    }
-    40% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
-    }
     50% {
-      clip: rect(15px, 9999px, 40px, 0);
-      transform: translate(-1px, 1px);
-    }
-    60% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
+      clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%);
+      transform: translate(-2px, -2px);
     }
     100% {
-      clip: rect(0, 9999px, 0, 0);
-      transform: translate(0);
+      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+      transform: translate(2px, 2px);
     }
   }
-  /* Container */
-  .container {
-    max-width: 960px;
-    margin: auto;
-    padding: 20px;
+
+  /* Grainy noise overlay */
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    background: 
+      url('https://media.giphy.com/media/3o7qDEq2bMbcbPRQ2c/giphy.gif') 
+      repeat;
+    opacity: 0.02;
+    z-index: 9999;
   }
-  /* Profile */
+
+  /* Profile section */
   .profile {
-    margin: 40px 0 20px;
     text-align: center;
+    margin-bottom: 40px;
   }
   .profile img {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    border: 2px solid #0f0;
-    object-fit: cover;
-    filter: drop-shadow(0 0 3px #0f0);
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    margin-bottom: 15px;
   }
   .profile h1 {
-    margin: 15px 0 10px;
-    font-size: 2.5rem;
-    letter-spacing: 0.15em;
+    font-size: 2rem;
+    margin-bottom: 10px;
   }
-  .social-icons {
-    margin-top: 8px;
+  .social-links {
+    margin-top: 10px;
   }
-  .social-icons a {
-    margin: 0 10px;
-    font-size: 1.8rem;
-    transition: color 0.3s ease;
+  .social-links a {
+    color: #00ff00;
+    margin: 0 12px;
+    font-size: 1.6rem;
+    transition: color 0.3s;
   }
-  .social-icons a:hover {
-    color: #00fff7;
+  .social-links a:hover {
+    color: #0f0;
   }
-  /* About */
-  .about {
-    margin: 60px 0 40px;
-    font-size: 1.1rem;
+
+  /* About section */
+  #about {
+    margin-bottom: 50px;
+  }
+  #about p {
     line-height: 1.6;
+    font-size: 1.1rem;
+    color: #a0ffa0;
   }
+
   /* Skills */
-  .skills {
+  #skills {
+    margin-bottom: 50px;
+  }
+  .skills-grid {
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 25px;
   }
   .skill {
     position: relative;
-    width: 80px;
-    height: 150px;
-    background: #010;
-    border: 2px solid #0f0;
-    border-radius: 12px;
-    box-shadow: 0 0 8px #0f0 inset;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0;
-    cursor: default;
-  }
-  .skill-name {
-    margin-top: 12px;
-    font-weight: 700;
-    font-size: 1rem;
-  }
-  /* Animated liquid fill effect (like chemistry vial) */
-  .liquid {
-    position: relative;
-    width: 40px;
-    height: 100px;
-    background: #003300;
-    border: 1px solid #0f0;
-    border-radius: 8px;
+    width: 120px;
+    height: 180px;
+    background: rgba(0, 255, 0, 0.07);
+    border: 2px solid #00ff00;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 0 6px #0f0 inset;
+    text-align: center;
+    padding-top: 15px;
+    cursor: default;
+    box-shadow: 0 0 15px #00ff00;
   }
-  .liquid-fill {
+  .skill-icon {
+    font-size: 60px;
+    color: #00ff00;
+    margin-bottom: 12px;
+  }
+  .skill .liquid-fill {
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
-    background: linear-gradient(180deg, #00ff00, #004400);
-    animation-fill-mode: forwards;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 0 15px #0f0;
+    background: #00ff00;
+    opacity: 0.25;
+    border-radius: 0 0 15px 15px;
+    height: 0%;
+    z-index: 0;
+    transition: height 0.3s ease-out;
   }
   .percentage {
-    margin-top: 8px;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: 700;
+    z-index: 1;
+    user-select: none;
   }
+
   /* Projects */
-  .projects {
-    margin: 60px 0 40px;
+  #projects {
+    margin-bottom: 50px;
+  }
+  .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
   }
   .project-card {
-    background: #010;
-    border: 2px solid #0f0;
+    background: rgba(0,255,0,0.07);
+    border: 2px solid #00ff00;
     border-radius: 10px;
-    box-shadow: 0 0 12px #0f0 inset;
     padding: 12px;
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 15px #00ff00;
+    text-align: center;
+    transition: transform 0.3s ease;
   }
   .project-card:hover {
-    box-shadow: 0 0 20px #00fff7;
+    transform: scale(1.05);
   }
   .project-card img {
     width: 100%;
-    border-radius: 6px;
-    margin-bottom: 12px;
+    height: 120px;
     object-fit: cover;
-    height: 140px;
+    border-radius: 7px;
+    margin-bottom: 10px;
   }
   .project-card h3 {
-    margin: 0 0 8px;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
   }
   .project-card button {
     background: transparent;
-    border: 2px solid #0f0;
-    color: #0f0;
-    padding: 8px 12px;
-    border-radius: 6px;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    padding: 6px 14px;
     cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    border-radius: 6px;
     transition: background-color 0.3s ease;
   }
   .project-card button:hover {
-    background-color: #00ff00a0;
+    background-color: #00ff00;
+    color: #010a0a;
   }
+
   /* Contact */
-  .contact {
-    margin: 60px 0 40px;
+  #contact {
+    margin-bottom: 50px;
   }
-  .contact h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-  }
-  form {
-    max-width: 400px;
-    margin: auto;
+  #contact form {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    max-width: 450px;
+    margin: 0 auto;
   }
-  input,
-  textarea {
-    background: #000;
-    border: 2px solid #0f0;
-    border-radius: 6px;
-    color: #0f0;
-    padding: 10px;
+  #contact input,
+  #contact textarea {
+    background: transparent;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #00ff00;
     font-family: 'Share Tech Mono', monospace;
     font-size: 1rem;
-    letter-spacing: 0.05em;
-    resize: vertical;
+    resize: none;
+    outline: none;
     transition: border-color 0.3s ease;
   }
-  input:focus,
-  textarea:focus {
-    outline: none;
-    border-color: #00fff7;
-    box-shadow: 0 0 8px #00fff7;
+  #contact input:focus,
+  #contact textarea:focus {
+    border-color: #0f0;
   }
-  button[type='submit'] {
-    background: transparent;
-    border: 2px solid #0f0;
-    color: #0f0;
-    padding: 10px;
+  #contact button {
+    width: fit-content;
+    align-self: center;
+    padding: 10px 22px;
     font-weight: 700;
+    font-family: 'Share Tech Mono', monospace;
+    background: transparent;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 6px;
-    letter-spacing: 0.05em;
     transition: background-color 0.3s ease;
   }
-  button[type='submit']:hover {
-    background-color: #00ff00a0;
+  #contact button:hover {
+    background-color: #00ff00;
+    color: #010a0a;
   }
+
   /* Responsive */
   @media (max-width: 600px) {
-    .skills {
-      gap: 15px;
+    .skills-grid {
+      justify-content: center;
     }
     .skill {
-      width: 65px;
-      height: 130px;
+      width: 100px;
+      height: 160px;
     }
-    .liquid {
-      width: 30px;
-      height: 80px;
+    .skill-icon {
+      font-size: 50px;
     }
     .project-card img {
-      height: 110px;
+      height: 100px;
     }
   }
 </style>
 </head>
 <body>
-  <div class="grain"></div>
   <div class="container">
     <!-- Profile -->
     <section class="profile" id="home">
-      <img src="https://i.pravatar.cc/140" alt="Profile Photo" />
-      <h1 class="glitch" data-text="YOUR NAME">YOUR NAME</h1>
-      <div class="social-icons">
-        <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"
+      <img src="https://i.pravatar.cc/130" alt="Profile Picture" />
+      <h1>Arthur Westerling</h1>
+      <div class="social-links">
+        <a href="https://github.com/artkillers" target="_blank" title="GitHub"
           ><i class="fab fa-github"></i
         ></a>
-        <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn"
+        <a href="https://linkedin.com/in/artkillers" target="_blank" title="LinkedIn"
           ><i class="fab fa-linkedin"></i
         ></a>
-        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter"
+        <a href="https://twitter.com/artkillers" target="_blank" title="Twitter"
           ><i class="fab fa-twitter"></i
         ></a>
-        <a href="mailto:your.email@example.com" aria-label="Email"
+        <a href="mailto:artkillers@example.com" title="Email"
           ><i class="fas fa-envelope"></i
         ></a>
       </div>
     </section>
 
     <!-- About -->
-    <section class="about" id="about">
+    <section id="about">
       <h2 class="glitch" data-text="ABOUT ME">ABOUT ME</h2>
       <p>
-        Saya adalah developer front-end dengan passion di bidang hacking,
-        keamanan siber, dan teknologi futuristik. Menguasai HTML, CSS, dan
-        JavaScript dengan berbagai framework modern.
+        Passionate web developer and cybersecurity enthusiast with a knack for
+        building futuristic, hacker-themed user interfaces.
       </p>
     </section>
 
     <!-- Skills -->
-    <section class="skills" id="skills">
-      <h2 class="glitch" data-text="SKILLS" style="width: 100%; text-align: center; margin-bottom: 30px;">SKILLS</h2>
-      <div class="skill" data-percent="90">
-        <div class="liquid">
+    <section id="skills">
+      <h2 class="glitch" data-text="SKILLS">SKILLS</h2>
+      <div class="skills-grid">
+        <div class="skill" data-percent="90" title="HTML5">
           <div class="liquid-fill"></div>
+          <i class="fab fa-html5 skill-icon"></i>
+          <div class="percentage">0%</div>
         </div>
-        <div class="skill-name">HTML</div>
-        <div class="percentage">0%</div>
-      </div>
-      <div class="skill" data-percent="85">
-        <div class="liquid">
+        <div class="skill" data-percent="85" title="CSS3">
           <div class="liquid-fill"></div>
+          <i class="fab fa-css3-alt skill-icon"></i>
+          <div class="percentage">0%</div>
         </div>
-        <div class="skill-name">CSS</div>
-        <div class="percentage">0%</div>
-      </div>
-      <div class="skill" data-percent="75">
-        <div class="liquid">
+        <div class="skill" data-percent="80" title="JavaScript">
           <div class="liquid-fill"></div>
+          <i class="fab fa-js-square skill-icon"></i>
+          <div class="percentage">0%</div>
         </div>
-        <div class="skill-name">JavaScript</div>
-        <div class="percentage">0%</div>
-      </div>
-      <div class="skill" data-percent="60">
-        <div class="liquid">
+        <div class="skill" data-percent="75" title="Python">
           <div class="liquid-fill"></div>
+          <i class="fab fa-python skill-icon"></i>
+          <div class="percentage">0%</div>
         </div>
-        <div class="skill-name">Python</div>
-        <div class="percentage">0%</div>
       </div>
     </section>
 
     <!-- Projects -->
-    <section class="projects" id="projects">
-      <h2 class="glitch" data-text="PROJECTS" style="width: 100%; text-align: center; margin-bottom: 30px;">PROJECTS</h2>
-      <div class="project-card">
-        <img src="https://placeimg.com/640/480/tech" alt="Project 1" />
-        <h3>Crypto Mining Dashboard</h3>
-        <button onclick="window.open('https://github.com/yourusername/cryptomining','_blank')">View Project</button>
-      </div>
-      <div class="project-card">
+    <section id="projects">
+      <h2 class="glitch" data-text="PROJECTS">PROJECTS</h2>
+      <div class="projects-grid">
         <div class="project-card">
-        <img src="https://placeimg.com/640/480/tech" alt="Project 2" />
-        <h3>Interactive Hacker Portfolio</h3>
-        <button onclick="window.open('https://github.com/yourusername/hackerportfolio', '_blank')">View Project</button>
-      </div>
-      <div class="project-card">
-        <img src="https://placeimg.com/640/480/arch" alt="Project 3" />
-        <h3>Social Inequality Analysis</h3>
-        <button onclick="window.open('https://github.com/yourusername/socialanalysis', '_blank')">View Project</button>
+          <img src="https://placeimg.com/640/480/tech" alt="Project 1" />
+          <h3>Social Inequality Analysis</h3>
+          <button
+            onclick="window.open('https://github.com/artkillers/socialanalysis', '_blank')"
+          >
+            View Project
+          </button>
+        </div>
+        <div class="project-card">
+          <img src="https://placeimg.com/640/480/tech" alt="Project 2" />
+          <h3>Interactive Dark Web</h3>
+          <button
+            onclick="window.open('https://github.com/artkillers/hackerportfolio', '_blank')"
+          >
+            View Project
+          </button>
+        </div>
+        <div class="project-card">
+          <img src="https://placeimg.com/640/480/arch" alt="Project 3" />
+          <h3>Data Visualization Tool</h3>
+          <button
+            onclick="window.open('https://github.com/artkillers/dataviz', '_blank')"
+          >
+            View Project
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- Contact -->
-    <section class="contact" id="contact">
+    <section id="contact">
       <h2 class="glitch" data-text="CONTACT ME">CONTACT ME</h2>
-      <form onsubmit="event.preventDefault(); alert('Thank you for reaching out!'); this.reset();">
+      <form
+        onsubmit="event.preventDefault(); alert('Thank you for reaching out!'); this.reset();"
+      >
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          rows="5"
+          required
+        ></textarea>
         <button type="submit">Send Message</button>
       </form>
     </section>
