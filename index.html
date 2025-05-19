@@ -62,33 +62,19 @@
   }
 
   @keyframes glitchTop {
-    0% {
-      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-      transform: translate(-2px, -2px);
-    }
-    50% {
-      clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%);
-      transform: translate(2px, 2px);
-    }
-    100% {
-      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-      transform: translate(-2px, -2px);
-    }
-  }
+            0% { text-shadow: 2px 0 0 rgba(0,255,0,0.5), -2px 0 0 rgba(0,255,0,0.4); }
+            25% { text-shadow: -2px 0 0 rgba(0,255,0,0.5), 2px 0 0 rgba(0,255,0,0.4); }
+            50% { text-shadow: 2px 0 0 rgba(0,255,0,0.5), -2px 0 0 rgba(0,255,0,0.4); }
+            75% { text-shadow: -2px 0 0 rgba(0,255,0,0.5), 2px 0 0 rgba(0,255,0,0.4); }
+            100% { text-shadow: 2px 0 0 rgba(0,255,0,0.5), -2px 0 0 rgba(0,255,0,0.4); }
+        }
   @keyframes glitchBottom {
-    0% {
-      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-      transform: translate(2px, 2px);
-    }
-    50% {
-      clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%);
-      transform: translate(-2px, -2px);
-    }
-    100% {
-      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-      transform: translate(2px, 2px);
-    }
-  }
+            0% { text-shadow: 2px 0 0 rgba(0,255,0,0.5), -2px 0 0 rgba(0,255,0,0.4); }
+            25% { text-shadow: -2px 0 0 rgba(0,255,0,0.5), 2px 0 0 rgba(0,255,0,0.4); }
+            50% { text-shadow: 2px 0 0 rgba(0,255,0,0.5), -2px 0 0 rgba(0,255,0,0.4); }
+            75% { text-shadow: -2px 0 0 rgba(0,255,0,0.5), 2px 0 0 rgba(0,255,0,0.4); }
+            100% { text-shadow: 2px 0 0 rgba(0,255,0,0.5), -2px 0 0 rgba(0,255,0,0.4); }
+        }
 
   /* Grainy noise overlay */
   body::after {
@@ -311,28 +297,20 @@
     <section class="profile" id="home">
       <img src="https://i.pravatar.cc/130" alt="Profile Picture" />
       <h1>Arthur Westerling</h1>
-      <div class="social-links">
-        <a href="https://github.com/artkillers" target="_blank" title="GitHub"
-          ><i class="fab fa-github"></i
-        ></a>
-        <a href="https://linkedin.com/in/artkillers" target="_blank" title="LinkedIn"
-          ><i class="fab fa-linkedin"></i
-        ></a>
-        <a href="https://twitter.com/artkillers" target="_blank" title="Twitter"
-          ><i class="fab fa-twitter"></i
-        ></a>
-        <a href="mailto:artkillers@example.com" title="Email"
-          ><i class="fas fa-envelope"></i
-        ></a>
-      </div>
+      <p>
+        Passionate web developer and cybersecurity enthusiast with a knack for
+        building futuristic, hacker-themed user interfaces.
+      </p>
     </section>
 
     <!-- About -->
     <section id="about">
       <h2 class="glitch" data-text="ABOUT ME">ABOUT ME</h2>
       <p>
-        Passionate web developer and cybersecurity enthusiast with a knack for
-        building futuristic, hacker-themed user interfaces.
+          Celebrating the artistic and cultural heritage that has existed since ancient times, makes us really like challenges & learning new things in the rapid development of technology.
+          <br/>
+          <br/>
+          I am a creator currently building a YouTube channel focused on reaction and review videos, while also developing various products for personal branding. I believe that every piece of work I create should be enjoyable for others, while also making a positive impact. Additionally, I am passionate about continuous learning for personal growth and enjoyment, as I believe that ongoing learning is key to progress.
       </p>
     </section>
 
@@ -345,19 +323,29 @@
           <i class="fab fa-html5 skill-icon"></i>
           <div class="percentage">0%</div>
         </div>
-        <div class="skill" data-percent="85" title="CSS3">
-          <div class="liquid-fill"></div>
-          <i class="fab fa-css3-alt skill-icon"></i>
-          <div class="percentage">0%</div>
-        </div>
         <div class="skill" data-percent="80" title="JavaScript">
           <div class="liquid-fill"></div>
           <i class="fab fa-js-square skill-icon"></i>
           <div class="percentage">0%</div>
         </div>
+        <div class="skill" data-percent="85" title="CSS3">
+          <div class="liquid-fill"></div>
+          <i class="fab fa-css3-alt skill-icon"></i>
+          <div class="percentage">0%</div>
+        </div>
         <div class="skill" data-percent="75" title="Python">
           <div class="liquid-fill"></div>
           <i class="fab fa-python skill-icon"></i>
+          <div class="percentage">0%</div>
+        </div>
+        <div class="skill" data-percent="85" title="React">
+          <div class="liquid-fill"></div>
+          <i class="fab fa-react skill-icon"></i>
+          <div class="percentage">0%</div>
+        </div>
+        <div class="skill" data-percent="70" title="Node JS">
+          <div class="liquid-fill"></div>
+          <i class="fab fa-node-js skill-icon"></i>
           <div class="percentage">0%</div>
         </div>
       </div>
@@ -368,28 +356,25 @@
       <h2 class="glitch" data-text="PROJECTS">PROJECTS</h2>
       <div class="projects-grid">
         <div class="project-card">
-          <img src="https://placeimg.com/640/480/tech" alt="Project 1" />
           <h3>Social Inequality Analysis</h3>
           <button
-            onclick="window.open('https://github.com/artkillers/socialanalysis', '_blank')"
+            onclick="window.open('https://github.com/artkillers/', '_blank')"
           >
             View Project
           </button>
         </div>
         <div class="project-card">
-          <img src="https://placeimg.com/640/480/tech" alt="Project 2" />
           <h3>Interactive Dark Web</h3>
           <button
-            onclick="window.open('https://github.com/artkillers/hackerportfolio', '_blank')"
+            onclick="window.open('https://github.com/artkillers/', '_blank')"
           >
             View Project
           </button>
         </div>
         <div class="project-card">
-          <img src="https://placeimg.com/640/480/arch" alt="Project 3" />
           <h3>Data Visualization Tool</h3>
           <button
-            onclick="window.open('https://github.com/artkillers/dataviz', '_blank')"
+            onclick="window.open('https://github.com/artkillers/', '_blank')"
           >
             View Project
           </button>
@@ -414,6 +399,22 @@
         <button type="submit">Send Message</button>
       </form>
     </section>
+    <br>
+    <br>
+      <div class="social-links">
+        <a href="https://github.com/artkillers" target="_blank" title="GitHub"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a href="https://linkedin.com/in/artkillers" target="_blank" title="LinkedIn"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <a href="https://twitter.com/artkillers" target="_blank" title="Twitter"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a href="mailto:artkillers@example.com" title="Email"
+          ><i class="fas fa-envelope"></i
+        ></a>
+      </div>
   </div>
 
   <script>
