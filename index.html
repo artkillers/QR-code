@@ -1,96 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hacker Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       background-color: #000;
-      color: #00fff7;
+      color: #00ff00;
       font-family: 'Share Tech Mono', monospace;
-    }
-
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: linear-gradient(to bottom, #000 70%, #060606);
-    }
-
-    .prompt {
-      font-size: 1.2em;
-      color: #0f0;
-      margin-bottom: 10px;
-    }
-
-    .glitch-text {
-      font-size: 3em;
-      animation: glitch 1s infinite;
+      overflow-x: hidden;
       position: relative;
-    }
+    }nav {
+  background: #000;
+  border-bottom: 2px solid #00ff00;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
 
-    @keyframes glitch {
-      0% { text-shadow: 2px 2px red; }
-      25% { text-shadow: -2px -2px lime; }
-      50% { text-shadow: 2px -2px blue; }
-      75% { text-shadow: -2px 2px magenta; }
-      100% { text-shadow: 2px 2px red; }
-    }
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
 
-    .typed-text {
-      font-size: 1.3em;
-      margin-top: 10px;
-      color: #fff;
-    }
+nav a {
+  color: #00ff00;
+  text-decoration: none;
+  transition: color 0.3s;
+}
 
-    .enter-btn {
-      margin-top: 40px;
-      padding: 10px 30px;
-      font-size: 1em;
-      background: transparent;
-      border: 2px solid #00fff7;
-      color: #00fff7;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
+nav a:hover {
+  color: #0f0;
+}
 
-    .enter-btn:hover {
-      background: #00fff7;
-      color: #000;
-    }
+section {
+  padding: 80px 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3em;
+  animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 2px red; }
+  25% { text-shadow: -2px -2px lime; }
+  50% { text-shadow: 2px -2px blue; }
+  75% { text-shadow: -2px 2px magenta; }
+  100% { text-shadow: 2px 2px red; }
+}
+
+.typed-text {
+  font-size: 1.3em;
+  color: #b6ffb6;
+  margin-top: 10px;
+}
+
+.enter-btn {
+  margin-top: 40px;
+  padding: 10px 30px;
+  background: transparent;
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s;
+}
+
+.enter-btn:hover {
+  background: #00ff00;
+  color: #000;
+}
+
+.portfolio ul, .about p, .contact p {
+  max-width: 600px;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  opacity: 0.1;
+  z-index: 10000;
+}
+
+.contact i {
+  margin-right: 8px;
+}
+
   </style>
 </head>
 <body>
-
-<section class="hero">
-  <div class="prompt">> Initializing Portfolio...</div>
-  <h1 class="glitch-text">CYBERDEV_01</h1>
-  <div class="typed-text">
-    <span id="typed"></span>
-  </div>
-  <button class="enter-btn">Enter Portfolio</button>
-</section>
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-<script>
-  new Typed("#typed", {
-    strings: [
-      "Full-stack Developer.",
-      "Crypto Miner.",
-      "Dark Web Explorer.",
-      "Terminal Artist."
-    ],
-    typeSpeed: 50,
-    backSpeed: 30,
-    loop: true
-  });
-</script>
-
-</body>
+  <div class="grain"></div>  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>  <section id="home" class="hero">
+    <div class="prompt">&gt; Initializing Portfolio...</div>
+    <h1>CYBERDEV_01</h1>
+    <div class="typed-text">
+      <span id="typed"></span>
+    </div>
+    <button class="enter-btn" onclick="document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' });">
+      Enter Portfolio
+    </button>
+  </section>  <section id="about" class="about">
+    <h2>&gt; whoami</h2>
+    <p>I am a full-stack developer passionate about crypto, terminal systems, and creating futuristic digital experiences. My work merges code, design, and cyber aesthetics.</p>
+  </section>  <section id="portfolio" class="portfolio">
+    <h2>&gt; ls ~/projects</h2>
+    <ul>
+      <li>[01] mining-dashboard.html</li>
+      <li>[02] qr-generator.js</li>
+      <li>[03] dark-map-tracker.html</li>
+    </ul>
+  </section>  <section id="contact" class="contact">
+    <h2>&gt; contact --info</h2>
+    <p><i class="fas fa-envelope"></i> cyberdev01@protonmail.com</p>
+    <p><i class="fab fa-github"></i> github.com/cyberdev01</p>
+    <p><i class="fab fa-telegram"></i> @cyberdev</p>
+    <p><i class="fab fa-linkedin"></i> linkedin.com/in/cyberdev01</p>
+  </section>  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>  <script>
+    new Typed("#typed", {
+      strings: [
+        "Full-stack Developer.",
+        "Crypto Miner.",
+        "Dark Web Explorer.",
+        "Terminal Artist."
+      ],
+      typeSpeed: 50,
+      backSpeed: 30,
+      loop: true
+    });
+  </script></body>
 </html>
