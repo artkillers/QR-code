@@ -154,39 +154,69 @@
   }
 </style>
 </head>
-<body><div class="player-container">
-  <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" alt="Cover art" class="cover" />
-  <div class="title">Monoton Stream Style Track</div>
-  <div class="controls">
-    <button class="btn-playpause" id="btnPlayPause">
-      <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-      <svg id="iconPause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6zm8-14v14h4V5z" /></svg>
-    </button>
+<body>
+  <div class="player-container">
+    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" alt="Cover art" class="cover" />
+    
+    <div class="title">Monoton Stream Style Track</div>
+    
+    <div class="controls">
+      <button class="btn-playpause" id="btnPlayPause">
+        <svg id="iconPlay" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <svg id="iconPause" viewBox="0 0 24 24" style="display: none;">
+          <path d="M6 19h4V5H6zm8-14v14h4V5z" />
+        </svg>
+      </button>
+    </div>
+    
+    <div class="progress-container" id="progressContainer">
+      <div class="progress" id="progress"></div>
+    </div>
+    
+    <div class="time">
+      <span id="currentTime">00:00</span>
+      <span id="duration">00:00</span>
+    </div>
+    
+    <nav class="socials">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </nav>
   </div>
-  <div class="progress-container" id="progressContainer">
-    <div class="progress" id="progress"></div>
-  </div>
-  <div class="time">
-    <span id="currentTime">00:00</span>
-    <span id="duration">00:00</span>
-  </div>
-  <nav class="socials">
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-facebook-f"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-  </nav>
-</div><div class="settings-toggle" id="settingsToggle"><i class="fas fa-cog"></i></div>
-<div class="settings-panel" id="settingsPanel">
-  <label for="themeSelect">Theme</label>
-  <select id="themeSelect">
-    <option value="dark">Dark</option>
-    <option value="light">Light</option>
-  </select><label for="colorPicker">Accent Color</label> <input type="color" id="colorPicker" value="#00ff66" />
 
-<label for="fontSelect">Font</label> <select id="fontSelect"> <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI</option> <option value="'Courier New', Courier, monospace">Courier New</option> <option value="'Arial Black', Gadget, sans-serif">Arial Black</option> <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option> <option value="'Georgia', serif">Georgia</option> </select>
+  <div class="settings-toggle" id="settingsToggle">
+    <i class="fas fa-cog"></i>
+  </div>
 
-</div>
-<audio id="audio" preload="metadata" src="https://cdn.pixabay.com/download/audio/2021/10/18/audio_2fba7d6788.mp3?filename=slow-motion-6136.mp3"></audio>
+  <div class="settings-panel" id="settingsPanel">
+    <label for="themeSelect">Theme</label>
+    <select id="themeSelect">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+    </select>
+
+    <label for="colorPicker">Accent Color</label>
+    <input type="color" id="colorPicker" value="#00ff66" />
+
+    <label for="fontSelect">Font</label>
+    <select id="fontSelect">
+      <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI</option>
+      <option value="'Courier New', Courier, monospace">Courier New</option>
+      <option value="'Arial Black', Gadget, sans-serif">Arial Black</option>
+      <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans MS</option>
+      <option value="'Georgia', serif">Georgia</option>
+    </select>
+  </div>
+
+  <audio
+    id="audio"
+    preload="metadata"
+    src="https://cdn.pixabay.com/download/audio/2021/10/18/audio_2fba7d6788.mp3?filename=slow-motion-6136.mp3">
+  </audio>
+</body>
 <script>
   const audio = document.getElementById('audio');
   const btnPlayPause = document.getElementById('btnPlayPause');
