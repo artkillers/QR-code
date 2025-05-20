@@ -4,15 +4,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pastel Music Player</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Courier+Prime&family=Playfair+Display&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --accent-color: #a7c7e7;
+    --background: #fefefe;
+    --text-color: #333;
+    --box-bg: #fff0f8;
+    --font-family: 'Roboto', sans-serif;
+  }
+  [data-theme="dark"] {
+    --background: #121212;
+    --text-color: #eee;
+    --box-bg: #1e1e1e;
+  }
   * {
     box-sizing: border-box;
     margin: 0; padding: 0;
   }
   body {
-    background: #f5f0f6;
-    color: #333;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background);
+    color: var(--text-color);
+    font-family: var(--font-family);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,29 +34,29 @@
     transition: background 0.4s, color 0.4s;
   }
   .player-container {
-    background: #fff0f5;
+    background: var(--box-bg);
     border-radius: 16px;
-    box-shadow: 0 0 20px var(--accent-color, #a7c7e7);
+    box-shadow: 0 0 25px var(--accent-color);
     width: 320px;
     padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    user-select: none;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s ease, background 0.4s;
   }
   .cover {
     width: 100%;
     border-radius: 14px;
-    box-shadow: 0 0 15px var(--accent-color, #a7c7e7);
+    box-shadow: 0 0 15px var(--accent-color);
     cursor: pointer;
+    transition: box-shadow 0.3s ease;
   }
   .title {
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: var(--accent-color, #a7c7e7);
+    color: var(--accent-color);
   }
   .controls {
     display: flex;
@@ -51,13 +64,13 @@
     justify-content: center;
   }
   .btn-playpause {
-    background: var(--accent-color, #a7c7e7);
+    background: var(--accent-color);
     border: none;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     cursor: pointer;
-    box-shadow: 0 0 10px var(--accent-color, #a7c7e7);
+    box-shadow: 0 0 10px var(--accent-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,15 +88,15 @@
   }
   .progress-container {
     width: 100%;
-    background: #ddd;
+    background: #ccc;
     height: 8px;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: inset 0 0 6px #bbb;
+    box-shadow: inset 0 0 6px #aaa;
     overflow: hidden;
   }
   .progress {
-    background: var(--accent-color, #a7c7e7);
+    background: var(--accent-color);
     height: 100%;
     width: 0%;
     border-radius: 8px 0 0 8px;
@@ -94,13 +107,13 @@
     display: flex;
     justify-content: space-between;
     margin-top: 4px;
-    color: #555;
+    color: var(--text-color);
   }
   .settings-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: var(--accent-color, #a7c7e7);
+    background: var(--accent-color);
     color: #fff;
     width: 44px;
     height: 44px;
@@ -109,7 +122,7 @@
     text-align: center;
     line-height: 44px;
     cursor: pointer;
-    box-shadow: 0 0 10px var(--accent-color, #a7c7e7);
+    box-shadow: 0 0 10px var(--accent-color);
     z-index: 1000;
   }
   .settings-toggle:hover {
@@ -119,12 +132,12 @@
     position: fixed;
     top: 70px;
     right: 20px;
-    background: #fffafc;
+    background: var(--box-bg);
     border-radius: 14px;
     padding: 15px;
     width: 240px;
-    box-shadow: 0 0 20px var(--accent-color, #a7c7e7);
-    color: #333;
+    box-shadow: 0 0 20px var(--accent-color);
+    color: var(--text-color);
     font-size: 14px;
     display: none;
     z-index: 1000;
@@ -136,17 +149,16 @@
     display: block;
     margin: 10px 0 5px;
     font-weight: 600;
-    color: var(--accent-color, #a7c7e7);
+    color: var(--accent-color);
   }
-  .settings-panel input[type="color"] {
+  .settings-panel select {
     width: 100%;
     padding: 6px;
     border-radius: 8px;
     border: none;
-    background: #eee;
+    background: #f5f5f5;
     color: #333;
     cursor: pointer;
-    font-size: 14px;
   }
 </style>
 </head>
@@ -172,54 +184,40 @@
     <i class="fas fa-sliders-h"></i>
   </div>
   <div class="settings-panel">
-    <label for="colorPicker">Accent Color</label>
-    <input type="color" id="colorPicker" value="#a7c7e7" />
+    <label for="colorSelect">Accent Color</label>
+    <select id="colorSelect">
+      <option value="#a7c7e7">Soft Blue</option>
+      <option value="#f7b5b5">Soft Pink</option>
+      <option value="#f7d9b5">Soft Peach</option>
+      <option value="#c5f7b5">Soft Green</option>
+      <option value="#b5f7eb">Soft Aqua</option>
+      <option value="#d5b5f7">Soft Purple</option>
+    </select>
+    <label for="fontSelect">Font Style</label>
+    <select id="fontSelect">
+      <option value="Roboto">Roboto</option>
+      <option value="Courier Prime">Courier Prime</option>
+      <option value="Playfair Display">Playfair Display</option>
+    </select>
+    <label for="themeToggle">Dark Mode</label>
+    <select id="themeToggle">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
   </div>
 <script>
 function toggleSettings() {
   document.querySelector('.settings-panel').classList.toggle('show');
 }
-const colorPicker = document.getElementById('colorPicker');
-colorPicker.addEventListener('input', () => {
-  document.body.style.setProperty('--accent-color', colorPicker.value);
-  document.querySelector('.player-container').style.boxShadow = `0 0 20px ${colorPicker.value}`;
-  document.querySelector('.cover').style.boxShadow = `0 0 15px ${colorPicker.value}`;
-  document.querySelector('.settings-panel').style.boxShadow = `0 0 20px ${colorPicker.value}`;
-  document.querySelector('.settings-toggle').style.boxShadow = `0 0 10px ${colorPicker.value}`;
-});
-const audio = document.getElementById('audio');
-const playBtn = document.querySelector('.btn-playpause i');
-const progress = document.getElementById('progress');
-const currentTimeEl = document.getElementById('currentTime');
-const durationEl = document.getElementById('duration');
-function togglePlay() {
-  if (audio.paused) {
-    audio.play();
-    playBtn.classList.remove('fa-play');
-    playBtn.classList.add('fa-pause');
-  } else {
-    audio.pause();
-    playBtn.classList.remove('fa-pause');
-    playBtn.classList.add('fa-play');
-  }
-}
-audio.addEventListener('timeupdate', () => {
-  const percent = (audio.currentTime / audio.duration) * 100;
-  progress.style.width = percent + '%';
-  currentTimeEl.textContent = formatTime(audio.currentTime);
-  durationEl.textContent = formatTime(audio.duration);
-});
-function seek(e) {
-  const width = e.currentTarget.offsetWidth;
-  const offsetX = e.offsetX;
-  const duration = audio.duration;
-  audio.currentTime = (offsetX / width) * duration;
-}
-function formatTime(time) {
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
-  return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-}
-</script>
+const colorSelect = document.getElementById('colorSelect');
+const fontSelect = document.getElementById('fontSelect');
+const themeToggle = document.getElementById('themeToggle');colorSelect.addEventListener('change', () => { const color = colorSelect.value; document.documentElement.style.setProperty('--accent-color', color); });
+
+fontSelect.addEventListener('change', () => { const font = fontSelect.value; document.documentElement.style.setProperty('--font-family', '${font}', sans-serif); });
+
+themeToggle.addEventListener('change', () => { const theme = themeToggle.value; document.documentElement.setAttribute('data-theme', theme); });
+
+const audio = document.getElementById('audio'); const playBtn = document.querySelector('.btn-playpause i'); const progress = document.getElementById('progress'); const currentTimeEl = document.getElementById('currentTime'); const durationEl = document.getElementById('duration'); function togglePlay() { if (audio.paused) { audio.play(); playBtn.classList.remove('fa-play'); playBtn.classList.add('fa-pause'); } else { audio.pause(); playBtn.classList.remove('fa-pause'); playBtn.classList.add('fa-play'); } } audio.addEventListener('timeupdate', () => { const percent = (audio.currentTime / audio.duration) * 100; progress.style.width = percent + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); durationEl.textContent = formatTime(audio.duration); }); function seek(e) { const width = e.currentTarget.offsetWidth; const offsetX = e.offsetX; const duration = audio.duration; audio.currentTime = (offsetX / width) * duration; } function formatTime(time) { const minutes = Math.floor(time / 60); const seconds = Math.floor(time % 60); return ${minutes}:${seconds < 10 ? '0' + seconds : seconds}; } </script>
+
 </body>
 </html>
