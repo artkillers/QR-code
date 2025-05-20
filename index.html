@@ -28,7 +28,7 @@
     min-height: 100vh;
     padding: 20px;
     text-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.4);
-    overflow-x: hidden;
+    overflow: auto;
   }
 
   .container {
@@ -167,12 +167,6 @@
     margin: 20px 0;
     flex-wrap: wrap;
   }
-  .skills-grid {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 25px;
-  }
   .skill {
     position: relative;
     width: 120px;
@@ -216,11 +210,6 @@
   /* Projects */
   #projects {
     margin-bottom: 50px;
-  }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 20px;
   }
   .project-card {
     background: rgba(0,255,0,0.07);
@@ -315,18 +304,26 @@
     text-align: center;
   }
 
-  @media (max-width: 900px) {
-    .skills-grid,
-    .projects-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+/* SKILLS GRID */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
 
-  @media (max-width: 600px) {
-    .skills-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+/* PROJECTS GRID */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* RESPONSIVE BREAKPOINT */
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
+}
    .skill {
       width: 100px;
       height: 160px;
