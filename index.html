@@ -82,6 +82,23 @@
             75% { text-shadow: -2px 0 0 rgba(0,255,0,0.5), 2px 0 0 rgba(0,255,0,0.4); }
             100% { text-shadow: 2px 0 0 rgba(0,255,0,0.5), -2px 0 0 rgba(0,255,0,0.4); }
         }
+  
+  @keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  }
+  50% {
+    box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+  }
+  }
+
+ .glow-box {
+  border: 1px solid #00ff00;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.3); /* transparan gelap */
+  animation: glowPulse 2.8s ease-in-out infinite;
+  }
 
   /* Grainy noise overlay */
   body::after {
@@ -249,7 +266,10 @@
     color: #010a0a;
   }
 
-  /* Contact */
+  /* Contact */  
+#contact form {
+  animation: glowPulse 2s infinite;
+}
 #contact {
   margin-bottom: 50px;
 }
@@ -259,6 +279,11 @@
   gap: 15px;
   max-width: 450px;
   margin: 0 auto;
+  box-shadow: 0 0 15px #00ff00a0; /* cahaya luar */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.3); /* transparan gelap */
+  border: 1px solid #00ff00;
 }
 #contact input,
 #contact textarea {
@@ -383,7 +408,7 @@
       <span class="tab-item" data-target="contact">Contact</span>
     </div>
 
-    <section id="skills" class="tab-section active">
+    <section id="skills" class="tab-section active glow-box">
       <br>
       <p>Each Skill Percentage</p>
       <br>
@@ -423,7 +448,7 @@
       </div>
     </section>
 
-    <section id="projects" class="tab-section">
+    <section id="projects" class="tab-section glow-box">
       <br>
       <p>Latest Projects</p>
       <br>
@@ -445,7 +470,7 @@
       </div>
     </section>
  
-    <section id="contact" class="tab-section">
+    <section id="contact" class="tab-section glow-box">
       <br>
       <p>Get In Touch</p>
       <br>
