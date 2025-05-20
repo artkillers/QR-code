@@ -219,5 +219,115 @@ themeToggle.addEventListener('change', () => { const theme = themeToggle.value; 
 
 const audio = document.getElementById('audio'); const playBtn = document.querySelector('.btn-playpause i'); const progress = document.getElementById('progress'); const currentTimeEl = document.getElementById('currentTime'); const durationEl = document.getElementById('duration'); function togglePlay() { if (audio.paused) { audio.play(); playBtn.classList.remove('fa-play'); playBtn.classList.add('fa-pause'); } else { audio.pause(); playBtn.classList.remove('fa-pause'); playBtn.classList.add('fa-play'); } } audio.addEventListener('timeupdate', () => { const percent = (audio.currentTime / audio.duration) * 100; progress.style.width = percent + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); durationEl.textContent = formatTime(audio.duration); }); function seek(e) { const width = e.currentTarget.offsetWidth; const offsetX = e.offsetX; const duration = audio.duration; audio.currentTime = (offsetX / width) * duration; } function formatTime(time) { const minutes = Math.floor(time / 60); const seconds = Math.floor(time % 60); return ${minutes}:${seconds < 10 ? '0' + seconds : seconds}; } </script>
 
+
+<script>
+  // Elements
+  const audio = document.getElementById('audio');
+  const btnPlayPause = document.getElementById('btnPlayPause');
+  const iconPlay = document.getElementById('iconPlay');
+  const iconPause = document.getElementById('iconPause');
+  const progressContainer = document.getElementById('progressContainer');
+  const progress = document.getElementById('progress');
+  const currentTimeEl = document.getElementById('currentTime');
+  const durationEl = document.getElementById('duration');
+
+  const settingsToggle = document.getElementById('settingsToggle');
+  const settingsPanel = document.getElementById('settingsPanel');
+
+  const themeSelect = document.getElementById('themeSelect');
+  const colorPicker = document.getElementById('colorPicker');
+  const fontSelect = document.getElementById('fontSelect');
+
+  // Play/pause toggle
+  btnPlayPause.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  // Update play/pause icon
+  audio.addEventListener('play', () => {
+    iconPlay.style.display = 'none';
+    iconPause.style.display = 'block';
+  });
+  audio.addEventListener('pause', () => {
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  });
+
+  // Update progress bar & time
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      const progressPercent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = progressPercent + '%';
+
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+      durationEl.textContent = formatTime(audio.duration);
+    }
+  });
+
+  // Seek when progress bar clicked
+  progressContainer.addEventListener('click', (e) => {
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+
+    if (duration) {
+      audio.currentTime = (clickX / width) * duration;
+    }
+  });
+
+  // Format time helper
+  function formatTime(seconds) {
+    const min = Math.floor(seconds / 60) || 0;
+    const sec = Math.floor(seconds % 60) || 0;
+    return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+  }
+
+  // Settings toggle panel
+  settingsToggle.addEventListener('click', () => {
+    if (settingsPanel.style.display === 'block') {
+      settingsPanel.style.display = 'none';
+      settingsToggle.setAttribute('aria-label', 'Open Settings');
+    } else {
+      settingsPanel.style.display = 'block';
+      settingsToggle.setAttribute('aria-label', 'Close Settings');
+    }
+  });
+
+  // Theme select
+  themeSelect.addEventListener('change', () => {
+    if (themeSelect.value === 'light') {
+      document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
+    }
+  });
+
+  // Color picker to change accent color
+  colorPicker.addEventListener('input', () => {
+    document.body.style.setProperty('--accent-color', colorPicker.value);
+  });
+
+  // Font selector
+  fontSelect.addEventListener('change', () => {
+    document.body.style.fontFamily = fontSelect.value;
+  });
+
+  // Initialize from default values
+  window.addEventListener('DOMContentLoaded', () => {
+    // Set initial theme from select
+    if (themeSelect.value === 'light') {
+      document.body.classList.add('light');
+    }
+    // Set initial color
+    document.body.style.setProperty('--accent-color', colorPicker.value);
+    // Set initial font
+    document.body.style.fontFamily = fontSelect.value;
+  });
+</script>
+
 </body>
 </html>
