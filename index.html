@@ -105,9 +105,10 @@
   .profile h1 {
     font-size: 2rem;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
   .social-links {
-    margin-top: 10px;
+    margin-top: 15px;
   }
   .social-links a {
     color: #00ff00;
@@ -127,13 +128,6 @@
     line-height: 1.6;
     font-size: 1.1rem;
     color: #a0ffa0;
-  }
-  .about-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 30px 0;
-    flex-wrap: wrap;
   }
   .tab-item {
     cursor: pointer;
@@ -159,6 +153,13 @@
   /* Skills */
   #skills {
     margin-bottom: 50px;
+  }
+  .skills-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
   }
   .skills-grid {
     display: flex;
@@ -331,27 +332,26 @@
         <a href="mailto:artkillers@example.com" title="Email"><i class="fas fa-envelope"></i></a>
       </div>
       <h1>Code Alchemist</h1>
-      <p>Cybersecurity Enthusiast | Ethical Hacker | Web Developer</p>
+      <p>Enthusiast | Developer | Ethical</p>
     </section>
 
-    <div class="about-tabs">
+    <section id="about" class="tab-section">
+      <h2 class="glitch" data-text="ABOUT ME">ABOUT ME</h2>
+      <p>
+        Celebrating the artistic and cultural heritage that has existed since ancient times, makes us really like challenges & learning new things in the rapid development of technology.
+        <br>
+        <br>
+      </p>
+    </section>
+    
+    <div class="skills-tabs">
       <!-- Tab navigation -->
-      <span class="tab-item active" data-target="about">About</span>
-      <span class="tab-item" data-target="skills">Skills</span>
+      <span class="tab-item active" data-target="skills">Skills</span>
       <span class="tab-item" data-target="projects">Projects</span>
       <span class="tab-item" data-target="contact">Contact</span>
     </div>
 
-    <section id="about" class="tab-section active">
-      <h2 class="glitch" data-text="ABOUT ME">ABOUT ME</h2>
-      <p>
-        Celebrating the artistic and cultural heritage that has existed since ancient times, makes us really like challenges & learning new things in the rapid development of technology.
-        <br/><br/>
-        I am a creator currently building a YouTube channel focused on reaction and review videos, while also developing various products for personal branding. I believe that every piece of work I create should be enjoyable for others, while also making a positive impact. Additionally, I am passionate about continuous learning for personal growth and enjoyment, as I believe that ongoing learning is key to progress.
-      </p>
-    </section>
-
-    <section id="skills" class="tab-section">
+    <section id="skills" class="tab-section active">
       <h2 class="glitch" data-text="SKILLS">SKILLS</h2>
       <div class="skills-grid">
         <!-- Each skill with icon and animated percentage fill -->
