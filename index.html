@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Code Alchemist Cyber Terminal</title>
+  <title>Code Alchemist Chat</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
@@ -13,352 +13,324 @@
     }
     body, html {
       margin:0; padding:0; height: 100%;
-      background: #000;
-      color: #0f0;
+      background: #000000;
       font-family: 'Share Tech Mono', monospace;
-      overflow: hidden;
-      user-select: none;
+      color: #0f0;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
-    /* Background grid + scanlines */
-    body::before {
-      content: '';
-      position: fixed;
-      top:0; left:0; width:100%; height:100%;
-      background:
-        linear-gradient(rgba(0,255,0,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,0,0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      top:0; left:0; width:100%; height:100%;
-      background:
-        repeating-linear-gradient(rgba(0,255,0,0.02), rgba(0,255,0,0.02) 2px, transparent 3px, transparent 4px);
-      pointer-events: none;
-      z-index: 0;
+      user-select: none;
     }
 
-    /* Container */
-    #app {
-      position: relative;
-      background: rgba(0, 30, 0, 0.8);
-      border: 2px solid #0f0;
-      box-shadow: 0 0 20px #0f0;
-      width: 90vw;
-      max-width: 800px;
-      height: 85vh;
+    #chat-container {
+      width: 100%;
+      max-width: 600px;
+      height: 90vh;
+      background: linear-gradient(135deg, #001a00, #003300);
+      border: 2px solid #00ff00;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
-      z-index: 1;
-      border-radius: 8px;
-      overflow: hidden;
+      box-shadow:
+        0 0 10px #00ff00,
+        inset 0 0 20px #007700;
     }
 
     header {
-      padding: 15px 20px;
-      font-size: 1.5rem;
+      padding: 1rem;
+      font-size: 1.8rem;
       font-weight: bold;
+      text-align: center;
+      color: #00ff00;
       text-shadow:
-        0 0 5px #0f0,
-        0 0 10px #0f0,
-        0 0 20px #0f0;
-      border-bottom: 1px solid #0f0;
+        0 0 10px #00ff00;
+      border-bottom: 1px solid #00ff00;
       user-select: text;
+      letter-spacing: 0.1em;
+      background: #002200;
     }
 
-    /* Terminal output */
-    #terminal {
-      flex: 1;
-      padding: 20px;
+    #chat {
+      flex-grow: 1;
+      padding: 1rem 1.5rem;
       overflow-y: auto;
-      white-space: pre-wrap;
-      font-size: 1.1rem;
-      line-height: 1.4;
-      text-shadow:
-        0 0 2px #0f0,
-        0 0 5px #0f0;
-      filter: drop-shadow(0 0 0.2rem #0f0);
-      letter-spacing: 0.04em;
-      background: rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
       scrollbar-width: thin;
-      scrollbar-color: #0f0 transparent;
+      scrollbar-color: #00ff00 transparent;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(0,255,0,0.04),
+          rgba(0,255,0,0.04) 2px,
+          transparent 3px,
+          transparent 6px
+        );
     }
-    #terminal::-webkit-scrollbar {
+    #chat::-webkit-scrollbar {
       width: 8px;
     }
-    #terminal::-webkit-scrollbar-track {
+    #chat::-webkit-scrollbar-track {
       background: transparent;
     }
-    #terminal::-webkit-scrollbar-thumb {
-      background: #0f0;
+    #chat::-webkit-scrollbar-thumb {
+      background: #00ff00;
       border-radius: 4px;
     }
 
-    /* Lines */
-    .line {
-      margin-bottom: 1em;
+    .msg {
+      max-width: 70%;
+      padding: 0.6rem 1rem;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      line-height: 1.3;
       position: relative;
-    }
-    .user {
-      color: #0ff;
-      text-shadow: 0 0 8px #0ff;
-    }
-    .ai {
-      color: #0f0;
-      text-shadow:
-        0 0 5px #0f0,
-        0 0 10px #0f0;
+      user-select: text;
+      word-wrap: break-word;
+      box-shadow: 0 0 8px #00ff00aa;
+      animation: fadeInUp 0.3s ease forwards;
     }
 
-    /* Glitch effect */
-    @keyframes glitch {
-      0% {
-        clip-path: inset(0 0 0 0);
-        transform: translate(0);
-      }
-      20% {
-        clip-path: inset(10% 0 85% 0);
-        transform: translate(-2px, -2px);
-      }
-      40% {
-        clip-path: inset(85% 0 10% 0);
-        transform: translate(2px, 2px);
-      }
-      60% {
-        clip-path: inset(10% 0 85% 0);
-        transform: translate(-2px, 2px);
-      }
-      80% {
-        clip-path: inset(85% 0 10% 0);
-        transform: translate(2px, -2px);
-      }
-      100% {
-        clip-path: inset(0 0 0 0);
-        transform: translate(0);
-      }
-    }
-    .glitch {
-      animation: glitch 1s infinite;
+    .msg.user {
+      align-self: flex-end;
+      background: linear-gradient(145deg, #00ff66, #009933);
+      color: #002200;
+      border-bottom-right-radius: 4px;
+      box-shadow:
+        0 0 15px #00ff66,
+        inset 0 0 10px #00ff66;
     }
 
-    /* Input area */
+    .msg.bot {
+      align-self: flex-start;
+      background: linear-gradient(145deg, #003300, #006600);
+      color: #00ff00;
+      border-bottom-left-radius: 4px;
+      box-shadow:
+        0 0 15px #00ff00,
+        inset 0 0 10px #00ff00;
+    }
+
+    .msg.user::after,
+    .msg.bot::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 0; 
+      height: 0;
+      border-style: solid;
+    }
+    .msg.user::after {
+      right: -10px;
+      border-width: 10px 0 0 10px;
+      border-color: transparent transparent transparent #00ff66;
+      filter: drop-shadow(0 0 3px #00ff66);
+    }
+    .msg.bot::after {
+      left: -10px;
+      border-width: 10px 10px 0 0;
+      border-color: transparent #003300 transparent transparent;
+      filter: drop-shadow(0 0 3px #00ff00);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     #input-area {
       display: flex;
-      border-top: 1px solid #0f0;
-      background: rgba(0,10,0,0.9);
-      padding: 15px 20px;
-      align-items: center;
+      border-top: 1px solid #00ff00;
+      background: #001a00;
+      padding: 1rem 1.5rem;
+      gap: 1rem;
     }
+
     #userInput {
       flex-grow: 1;
       background: transparent;
-      border: none;
-      border-bottom: 2px solid #0f0;
-      color: #0f0;
+      border: 2px solid #00ff00;
+      border-radius: 25px;
+      padding: 0.7rem 1.2rem;
       font-family: 'Share Tech Mono', monospace;
       font-size: 1.2rem;
-      padding: 10px 15px;
+      color: #00ff00;
       outline: none;
       letter-spacing: 0.05em;
       transition: border-color 0.3s ease;
+      user-select: text;
     }
     #userInput::placeholder {
       color: #055005;
       font-style: italic;
-      opacity: 0.7;
+      opacity: 0.6;
     }
     #userInput:focus {
-      border-color: #0ff;
-      box-shadow: 0 0 8px #0ff;
+      border-color: #00ff99;
+      box-shadow: 0 0 10px #00ff99;
     }
+
     #sendBtn {
-      margin-left: 15px;
-      background: #0f0;
+      background: #00ff66;
       border: none;
-      color: #000;
+      border-radius: 25px;
+      color: #002200;
       font-weight: 700;
-      font-size: 1.1rem;
-      padding: 10px 20px;
-      border-radius: 4px;
+      font-size: 1.2rem;
+      padding: 0 1.8rem;
       cursor: pointer;
-      text-shadow: 0 0 2px #000;
-      transition: background-color 0.25s ease;
       user-select: none;
+      box-shadow: 0 0 15px #00ff66;
+      transition: background-color 0.3s ease;
     }
     #sendBtn:disabled {
       opacity: 0.4;
       cursor: not-allowed;
-      background: #055005;
+      box-shadow: none;
     }
     #sendBtn:hover:not(:disabled) {
-      background-color: #0ff;
-      color: #000;
-      text-shadow: none;
+      background-color: #00ff99;
+      box-shadow: 0 0 20px #00ff99;
     }
 
     /* Typing indicator */
     #typing {
-      padding: 10px 20px;
+      padding-left: 1.5rem;
       font-style: italic;
-      color: #0f0;
-      text-shadow: 0 0 5px #0f0;
-      height: 1.2em;
+      color: #00ff00cc;
+      min-height: 1.4rem;
       user-select: none;
-      min-height: 1.2em;
+      font-size: 1rem;
+      text-shadow: 0 0 8px #00ff00cc;
     }
 
     /* Responsive */
-    @media (max-width: 600px) {
-      #app {
-        width: 100vw;
-        height: 100vh;
+    @media (max-width: 480px) {
+      #chat-container {
+        height: 95vh;
+        max-width: 100vw;
         border-radius: 0;
-        box-shadow: none;
       }
       #userInput {
         font-size: 1rem;
-        padding: 8px 12px;
+        padding: 0.5rem 1rem;
       }
       #sendBtn {
         font-size: 1rem;
-        padding: 8px 15px;
-        margin-left: 10px;
+        padding: 0 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div id="app" role="main" aria-label="Code Alchemist AI Terminal">
-    <header>Code Alchemist Cyber Terminal</header>
-    <div id="terminal" aria-live="polite" aria-atomic="false"></div>
-    <div id="typing" aria-live="assertive" aria-atomic="true" aria-relevant="additions"></div>
+  <div id="chat-container" role="main" aria-label="Code Alchemist chat">
+    <header>Code Alchemist Chat</header>
+    <div id="chat" aria-live="polite" aria-atomic="false" tabindex="0"></div>
+    <div id="typing" aria-live="assertive" aria-atomic="true"></div>
     <form id="input-area" onsubmit="return false;" aria-label="Send message form">
       <input
         id="userInput"
         type="text"
         autocomplete="off"
-        placeholder="Invoke the alchemy... (type here)"
+        placeholder="Type your command..."
         aria-label="User input"
         required
+        spellcheck="false"
       />
       <button id="sendBtn" disabled aria-disabled="true" aria-label="Send message button">SEND</button>
     </form>
   </div>
 
   <script>
-    const terminal = document.getElementById('terminal');
+    const chat = document.getElementById('chat');
     const input = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
     const typing = document.getElementById('typing');
 
-    // Enable/disable send button depending on input
     input.addEventListener('input', () => {
       const val = input.value.trim();
       sendBtn.disabled = val.length === 0;
       sendBtn.setAttribute('aria-disabled', val.length === 0 ? 'true' : 'false');
     });
 
-    // Scroll terminal to bottom helper
     function scrollBottom() {
-      terminal.scrollTo({top: terminal.scrollHeight, behavior: 'smooth'});
+      chat.scrollTo({top: chat.scrollHeight, behavior: 'smooth'});
     }
 
-    // Typing effect for AI messages
-    function typeEffect(element, text, speed = 30, callback) {
-      let index = 0;
+    // Typewriter effect for AI response
+    function typeEffect(element, text, speed = 30, cb) {
+      let i = 0;
       element.textContent = '';
       function type() {
-        if (index < text.length) {
-          element.textContent += text.charAt(index);
-          index++;
-          setTimeout(type, speed);
+        if(i < text.length){
+          element.textContent += text.charAt(i);
+          i++;
           scrollBottom();
-        } else if (callback) {
-          callback();
-        }
+          setTimeout(type, speed);
+        } else if(cb) cb();
       }
       type();
     }
 
-    // Append a line to terminal with class
-    function appendLine(text, className) {
-      const line = document.createElement('div');
-      line.classList.add('line', className);
-      line.textContent = text;
-      terminal.appendChild(line);
+    function appendMessage(text, sender){
+      const msg = document.createElement('div');
+      msg.classList.add('msg', sender);
+      msg.textContent = text;
+      chat.appendChild(msg);
       scrollBottom();
-      return line;
+      return msg;
     }
 
-    // Simulated AI response (replace with real API later)
-    function getAIResponse(message) {
-      const m = message.toLowerCase();
-      if (m.includes('hello') || m.includes('hi')) return "Greetings, seeker of the Code Alchemist.";
-      if (m.includes('help')) return "Invoke commands or ask about coding alchemy.";
-      if (m.includes('who')) return "I am the digital spirit forged from code and cyber magic.";
-      if (m.includes('magic')) return "Alchemy is transforming the impossible into reality, just like code.";
-      if (m.includes('secret')) return "The secret lies in the art of debugging.";
-      return "The cyber forge contemplates your query...";
+    function getAIResponse(input) {
+      const msg = input.toLowerCase();
+      if(msg.includes('hello') || msg.includes('hi')){
+        return "Greetings, seeker of the Code Alchemist.";
+      } else if(msg.includes('help')){
+        return "Ask me about code, encryption, or the secrets of the digital forge.";
+      } else if(msg.includes('who are you')){
+        return "I am the digital alchemist, weaving code into magic.";
+      } else if(msg.includes('magic')){
+        return "True magic lies in the mastery of algorithms and logic.";
+      } else if(msg.includes('secret')){
+        return "The secret to code alchemy? Persistence and curiosity.";
+      } else {
+        return "The forge contemplates your words...";
+      }
     }
 
-    // Handle sending message
-    function sendMessage() {
-      const message = input.value.trim();
-      if (!message) return;
+    async function sendMessage(){
+      const userText = input.value.trim();
+      if(!userText) return;
 
-      // Disable input and button while responding
+      appendMessage(userText, 'user');
+      input.value = '';
       sendBtn.disabled = true;
       sendBtn.setAttribute('aria-disabled', 'true');
-      input.value = '';
-      input.disabled = true;
 
-      // Append user message
-      appendLine('> ' + message, 'user');
+      typing.textContent = 'Code Alchemist is typing...';
 
-      // Show typing indicator
-      typing.textContent = '⧗ Alchemist is forging response...';
-      typing.style.opacity = '1';
+      // Simulate delay for typing
+      await new Promise(r => setTimeout(r, 1000));
 
-      // Simulate delay then show AI response with typing effect
-      setTimeout(() => {
-        typing.style.opacity = '0';
-        const aiLine = document.createElement('div');
-        aiLine.classList.add('line', 'ai', 'glitch');
-        terminal.appendChild(aiLine);
-        scrollBottom();
-
-        typeEffect(aiLine, getAIResponse(message), 30, () => {
-          aiLine.classList.remove('glitch');
-          // Re-enable input
-          input.disabled = false;
-          input.focus();
-          sendBtn.disabled = true;
-          sendBtn.setAttribute('aria-disabled', 'true');
-        });
-      }, 1200);
+      typing.textContent = '';
+      const botMsg = appendMessage('', 'bot');
+      typeEffect(botMsg, getAIResponse(userText), 25);
     }
 
-    // Event listeners for button click and Enter key
     sendBtn.addEventListener('click', sendMessage);
     input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
+      if(e.key === 'Enter' && !sendBtn.disabled){
         sendMessage();
       }
     });
 
-    // Focus input on load
-    window.onload = () => {
-      input.focus();
-      appendLine('Welcome to the Code Alchemist Cyber Terminal. Type your query and press Enter.', 'ai');
-    };
   </script>
 </body>
 </html>
