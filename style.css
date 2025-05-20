@@ -122,6 +122,7 @@
   #about p {
     line-height: 1.6;
     font-size: 1.1rem;
+    margin-bottom: 12px;
     color: #a0ffa0;
   }
   .tab-item {
@@ -172,6 +173,7 @@
   .skill-icon {
     font-size: 60px;
     color: #00ff00;
+    margin-top: 8px;
     margin-bottom: 12px;
   }
   .skill .liquid-fill {
