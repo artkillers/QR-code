@@ -24,6 +24,7 @@
     color: #00ff00;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
@@ -307,8 +308,11 @@
 /* SKILLS GRID */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;  
+  justify-items: center;
 }
 
 /* PROJECTS GRID */
