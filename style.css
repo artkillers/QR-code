@@ -86,7 +86,7 @@ body {
 .skills-tabs {
   display: flex;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; /* buat smooth scroll di iOS */
   scrollbar-width: thin;
   scrollbar-color: #00ff88 transparent;
   padding: 0 1rem;
@@ -95,36 +95,30 @@ body {
   border-bottom: 2px solid #222;
   margin-bottom: 2.5rem;
 }
-
 .skills-tabs::-webkit-scrollbar {
   height: 6px;
 }
-
 .skills-tabs::-webkit-scrollbar-thumb {
   background-color: #00ff88;
   border-radius: 10px;
 }
-
-/* Tab item */
 .tab-item {
-  flex: 0 0 auto;
+  flex: 0 0 auto; /* supaya gak mengecil */
   padding: 0.7rem 1.6rem;
   cursor: pointer;
   border-bottom: 3px solid transparent;
   font-size: 1.15rem;
   font-weight: 600;
   color: #a0a0a0;
-  white-space: nowrap;
+  white-space: nowrap; /* supaya teks tab gak wrap */
   transition: all 0.3s ease;
   border-radius: 4px 4px 0 0;
 }
-
 .tab-item.active {
   border-color: #00ff88;
   color: #00ff88;
   background-color: rgba(0, 255, 136, 0.1);
 }
-
 .tab-item:hover:not(.active) {
   color: #00ff88;
   background-color: rgba(0, 255, 136, 0.05);
