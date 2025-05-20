@@ -1,133 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Art Killers</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Code Alchemist AI Terminal</title>
+<style>
+  /* Reset & basics */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    background-color: #000;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+  }
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 800px;
+    margin: auto;
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+  }
+  header {
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #00ff00;
+    user-select: none;
+  }
+  #terminal {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+  .line {
+    margin-bottom: 10px;
+  }
+  .user {
+    color: #00cc00;
+  }
+  .ai {
+    color: #00ff00;
+  }
+  #typing {
+    font-style: italic;
+    color: #009900;
+    margin-bottom: 10px;
+  }
+  #input-area {
+    display: flex;
+    border-top: 1px solid #00ff00;
+    padding: 10px 20px;
+    background: #001100;
+  }
+  #userInput {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #00ff00;
+    color: #00ff00;
+    font-size: 1rem;
+    padding: 5px;
+    outline: none;
+  }
+  #sendBtn {
+    background: #00ff00;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 15px;
+    margin-left: 10px;
+    transition: background 0.3s ease;
+  }
+  #sendBtn:hover:not(:disabled) {
+    background: #00cc00;
+  }
+  #sendBtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  /* Scrollbar for terminal */
+  #terminal::-webkit-scrollbar {
+    width: 8px;
+  }
+  #terminal::-webkit-scrollbar-track {
+    background: #000;
+  }
+  #terminal::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+  }
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Favicon (Optional) -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  /* Responsive */
+  @media (max-width: 600px) {
+    #app {
+      border: none;
+      box-shadow: none;
+      height: 100vh;
+      max-width: 100%;
+    }
+    #input-area {
+      padding: 8px 12px;
+    }
+    #userInput {
+      font-size: 1rem;
+    }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <!-- Profile -->
-    <section class="profile" id="home">
-      <br>
-      <img src="https://i.pravatar.cc/130" alt="Profile Picture" />
-      <br>
-      <div class="social-links">
-        <!-- Social media links -->
-        <a href="https://github.com/artkillers" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://t.me/artkillers." target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
-        <a href="https://instagram.com/in/artkillers." target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="mailto:artkillers@example.com" title="Email"><i class="fas fa-envelope"></i></a>
-      </div>
-      <br>
-      <h1 class="glitch" data-text="Art Killers">Art Killers</h1>
-      <br>
-      <div class="typed-text">
-      <span id="typed"></span>
-      </div>
-      <br>
-      <p>
-      <br>
-        Celebrating the artistic and cultural heritage that has existed since ancient times, makes us really like challenges & learning new things in the rapid development of technology.
-      <br>
-      </p>    
-    </section>
-
-    <!-- Navigation Tabs -->
-    <div class="skills-tabs">
-      <span class="tab-item active" data-target="skills">Skills</span>
-      <span class="tab-item" data-target="projects">Projects</span>
-      <span class="tab-item" data-target="contact">Contact</span>
-    </div>
-
-    <!-- Skills Section -->
-    <section id="skills" class="tab-section active">
-      <p>Each Skill Percentage</p>
-      <br>
-      <h2 class="glitch" data-text=""><i class="fas fa-code"></i></h2>
-      <div class="skills-grid">
-        <!-- Each skill with icon and animated percentage fill -->
-        <div class="skill" data-percent="90" title="HTML5">
-          <div class="liquid-fill"></div>
-          <i class="fab fa-html5 skill-icon"></i>
-          <div class="percentage">0%</div>
-        </div>
-        <div class="skill" data-percent="80" title="JavaScript">
-          <div class="liquid-fill"></div>
-          <i class="fab fa-js-square skill-icon"></i>
-          <div class="percentage">0%</div>
-        </div>
-        <div class="skill" data-percent="85" title="CSS3">
-          <div class="liquid-fill"></div>
-          <i class="fab fa-css3-alt skill-icon"></i>
-          <div class="percentage">0%</div>
-        </div>
-        <div class="skill" data-percent="75" title="Python">
-          <div class="liquid-fill"></div>
-          <i class="fab fa-python skill-icon"></i>
-          <div class="percentage">0%</div>
-        </div>
-        <div class="skill" data-percent="85" title="React">
-          <div class="liquid-fill"></div>
-          <i class="fab fa-react skill-icon"></i>
-          <div class="percentage">0%</div>
-        </div>
-        <div class="skill" data-percent="70" title="Node JS">
-          <div class="liquid-fill"></div>
-          <i class="fab fa-node-js skill-icon"></i>
-          <div class="percentage">0%</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="tab-section">
-      <p>Latest Projects</p>
-      <br>
-      <h2 class="glitch" data-text=""><i class="fas fa-code-branch"></i></h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <h3>Crypto Mining</h3>
-          <button onclick="window.open('https://artkillers.github.io/cryptomining', '_blank')">View Project</button>
-        </div>
-        <div class="project-card">
-          <h3>Multi Device</h3>
-          <button onclick="window.open('https://artkillers.github.io/multidevice/', '_blank')">View Project</button>
-        </div>
-        <div class="project-card">
-          <h3>Code Alchemist</h3>
-          <button onclick="window.open('https://artkillers.github.io/codealchemist/', '_blank')">View Project</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="tab-section">
-      <p>Get In Touch</p>
-      <br>
-      <h2 class="glitch" data-text=""><i class="fas fa-envelope"></i></h2>
-      <form onsubmit="event.preventDefault(); alert('Thank you for reaching out!'); this.reset();">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-    </section>
+<div id="app">
+  <header>Code Alchemist AI Terminal</header>
+  <div id="terminal">
+    <div class="line ai">Welcome, seeker of knowledge. Speak your query to the digital forge...</div>
   </div>
+  <div id="typing" style="display:none;">AI is crafting your response...</div>
+  <form id="input-area" onsubmit="return false;">
+    <input type="text" id="userInput" autocomplete="off" placeholder="Type your message..." />
+    <button id="sendBtn" disabled>Send</button>
+  </form>
+</div>
 
-  <!-- Typed.js for typing effect -->
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+  const terminal = document.getElementById('terminal');
+  const userInput = document.getElementById('userInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const typingIndicator = document.getElementById('typing');
 
-  <!-- Main JS -->
-  <script src="script.js"></script>
+  // Enable send button if input has text
+  userInput.addEventListener('input', () => {
+    sendBtn.disabled = userInput.value.trim() === '';
+  });
+
+  // Scroll terminal to bottom
+  function scrollTerminal() {
+    terminal.scrollTop = terminal.scrollHeight;
+  }
+
+  // Typing effect for AI response
+  function typeText(element, text, speed = 40, callback) {
+    let i = 0;
+    element.textContent = '';
+    function typing() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, speed);
+      } else if (callback) {
+        callback();
+      }
+    }
+    typing();
+  }
+
+  // Print a line to terminal
+  function printLine(text, className) {
+    const div = document.createElement('div');
+    div.className = 'line ' + className;
+    terminal.appendChild(div);
+    return div;
+  }
+
+  // Fake AI response for demo - replace with real API call later
+  function fakeAIResponse(msg) {
+    msg = msg.toLowerCase();
+    if (msg.includes('hello') || msg.includes('hi')) return "Greetings, Code Alchemist.";
+    if (msg.includes('help')) return "Type anything you wish to know. I am here to guide.";
+    if (msg.includes('who')) return "I am the digital spirit forged in code and alchemy.";
+    if (msg.includes('magic')) return "Alchemy is the art of transforming the impossible into reality.";
+    return "The digital forge contemplates your request...";
+  }
+
+  // Handle sending message
+  function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+    sendBtn.disabled = true;
+    userInput.value = '';
+
+    // Print user message
+    printLine('> ' + message, 'user');
+    scrollTerminal();
+
+    // Show typing indicator
+    typingIndicator.style.display = 'block';
+
+    // Simulate AI delay
+    setTimeout(() => {
+      typingIndicator.style.display = 'none';
+      const aiLine = printLine('', 'ai');
+      scrollTerminal();
+      typeText(aiLine, fakeAIResponse(message), 30, scrollTerminal);
+    }, 800);
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  userInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // Focus input on load
+  userInput.focus();
+</script>
 </body>
 </html>
