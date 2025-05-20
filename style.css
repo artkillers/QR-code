@@ -131,13 +131,7 @@ body {
 }
 */
 /* Tab sections */
-.tab-item {
-  display: none;
-}
 
-.tab-item.active {
-  display: block;
-}
 .tab-item {
   cursor: pointer;
   padding: 6px 12px;
@@ -147,6 +141,11 @@ body {
   font-weight: 600;
   color: #00ff88
   transition: background-color 0.3s, color 0.3s;
+}
+.tab-item.active {
+  border-color: #00ff88;
+  color: #00ff88;
+  background-color: rgba(0, 255, 136, 0.1);
 }
 .tab-item.active,
 .tab-item:hover {
