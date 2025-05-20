@@ -1,6 +1,6 @@
 // === 1. Typed.js Effect ===
 const typed = new Typed("#typed", {
-  strings: ["Creative Developer", "Code Alchemist", "Tech Explorer"],
+  strings: ["Creative Developer", "Enthusiast Digital", "Code Alchemist", "Tech Explorer"],
   typeSpeed: 60,
   backSpeed: 40,
   backDelay: 1500,
