@@ -250,50 +250,55 @@
   }
 
   /* Contact */
-  #contact {
-    margin-bottom: 50px;
-  }
-  #contact form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 450px;
-    margin: 0 auto;
-  }
-  #contact input,
-  #contact textarea {
-    background: transparent;
-    border: 2px solid #00ff00;
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: #00ff00;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1rem;
-    resize: none;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  #contact input:focus,
-  #contact textarea:focus {
-    border-color: #0f0;
-  }
-  #contact button {
-    width: fit-content;
-    align-self: center;
-    padding: 10px 22px;
-    font-weight: 700;
-    font-family: 'Share Tech Mono', monospace;
-    background: transparent;
-    border: 2px solid #00ff00;
-    color: #00ff00;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  #contact button:hover {
-    background-color: #00ff00;
-    color: #010a0a;
-  }
+#contact {
+  margin-bottom: 50px;
+}
+#contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 450px;
+  margin: 0 auto;
+}
+#contact input,
+#contact textarea {
+  background-color: rgba(0, 0, 0, 0.2); /* transparan gelap */
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #00ff00;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+#contact input::placeholder,
+#contact textarea::placeholder {
+  color: #00ff00a0; /* hijau transparan */
+}
+#contact input:focus,
+#contact textarea:focus {
+  border-color: #00ff00;
+  box-shadow: 0 0 5px #00ff00;
+}
+#contact button {
+  width: fit-content;
+  align-self: center;
+  padding: 10px 22px;
+  font-weight: 700;
+  font-family: 'Share Tech Mono', monospace;
+  background: transparent;
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+#contact button:hover {
+  background-color: #00ff00;
+  color: #010a0a;
+}
   
   .typed-text {
       font-size: 1.3em;
@@ -353,7 +358,7 @@
       <div class="social-links">
         <!-- Social media links -->
         <a href="https://github.com/artkillers" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://YouTube.com/artkillers." target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://t.me/artkillers." target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
         <a href="https://instagram.com/in/artkillers." target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="mailto:artkillers@example.com" title="Email"><i class="fas fa-envelope"></i></a>
       </div>
