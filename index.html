@@ -2,335 +2,179 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Code Alchemist Chat</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-    /* Reset */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
-    body, html {
-      margin:0; padding:0; height: 100%;
-      background: #000000;
-      font-family: 'Share Tech Mono', monospace;
-      color: #0f0;
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #1e1e1e;
+      color: #f1f1f1;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      user-select: none;
     }
 
-    #chat-container {
+    .chat-wrapper {
       width: 100%;
-      max-width: 600px;
+      max-width: 800px;
       height: 90vh;
-      background: linear-gradient(135deg, #001a00, #003300);
-      border: 2px solid #00ff00;
-      border-radius: 12px;
       display: flex;
       flex-direction: column;
-      box-shadow:
-        0 0 10px #00ff00,
-        inset 0 0 20px #007700;
+      background-color: #121212;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0,255,0,0.1);
+      overflow: hidden;
     }
 
-    header {
-      padding: 1rem;
-      font-size: 1.8rem;
-      font-weight: bold;
-      text-align: center;
-      color: #00ff00;
-      text-shadow:
-        0 0 10px #00ff00;
-      border-bottom: 1px solid #00ff00;
-      user-select: text;
-      letter-spacing: 0.1em;
-      background: #002200;
-    }
-
-    #chat {
-      flex-grow: 1;
-      padding: 1rem 1.5rem;
+    .chat-box {
+      flex: 1;
       overflow-y: auto;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
-      scrollbar-width: thin;
-      scrollbar-color: #00ff00 transparent;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(0,255,0,0.04),
-          rgba(0,255,0,0.04) 2px,
-          transparent 3px,
-          transparent 6px
-        );
-    }
-    #chat::-webkit-scrollbar {
-      width: 8px;
-    }
-    #chat::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    #chat::-webkit-scrollbar-thumb {
-      background: #00ff00;
-      border-radius: 4px;
+      gap: 15px;
+      scrollbar-width: none;
     }
 
-    .msg {
-      max-width: 70%;
-      padding: 0.6rem 1rem;
-      border-radius: 20px;
-      font-size: 1.1rem;
-      line-height: 1.3;
-      position: relative;
-      user-select: text;
+    .chat-box::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chat-message {
+      max-width: 75%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      white-space: pre-wrap;
+      line-height: 1.4;
       word-wrap: break-word;
-      box-shadow: 0 0 8px #00ff00aa;
-      animation: fadeInUp 0.3s ease forwards;
+      animation: fadeIn 0.3s ease-in-out;
     }
 
-    .msg.user {
+    .user-message {
       align-self: flex-end;
-      background: linear-gradient(145deg, #00ff66, #009933);
-      color: #002200;
-      border-bottom-right-radius: 4px;
-      box-shadow:
-        0 0 15px #00ff66,
-        inset 0 0 10px #00ff66;
+      background-color: #2e2e2e;
+      color: #fff;
     }
 
-    .msg.bot {
+    .bot-message {
       align-self: flex-start;
-      background: linear-gradient(145deg, #003300, #006600);
-      color: #00ff00;
-      border-bottom-left-radius: 4px;
-      box-shadow:
-        0 0 15px #00ff00,
-        inset 0 0 10px #00ff00;
+      background-color: #333;
+      color: #b6ffb6;
+      border-left: 3px solid #00ff00;
     }
 
-    .msg.user::after,
-    .msg.bot::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      width: 0; 
-      height: 0;
-      border-style: solid;
-    }
-    .msg.user::after {
-      right: -10px;
-      border-width: 10px 0 0 10px;
-      border-color: transparent transparent transparent #00ff66;
-      filter: drop-shadow(0 0 3px #00ff66);
-    }
-    .msg.bot::after {
-      left: -10px;
-      border-width: 10px 10px 0 0;
-      border-color: transparent #003300 transparent transparent;
-      filter: drop-shadow(0 0 3px #00ff00);
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    #input-area {
+    .chat-input {
       display: flex;
-      border-top: 1px solid #00ff00;
-      background: #001a00;
-      padding: 1rem 1.5rem;
-      gap: 1rem;
+      padding: 15px;
+      background: #181818;
+      border-top: 1px solid #333;
     }
 
-    #userInput {
-      flex-grow: 1;
-      background: transparent;
-      border: 2px solid #00ff00;
-      border-radius: 25px;
-      padding: 0.7rem 1.2rem;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 1.2rem;
-      color: #00ff00;
-      outline: none;
-      letter-spacing: 0.05em;
-      transition: border-color 0.3s ease;
-      user-select: text;
-    }
-    #userInput::placeholder {
-      color: #055005;
-      font-style: italic;
-      opacity: 0.6;
-    }
-    #userInput:focus {
-      border-color: #00ff99;
-      box-shadow: 0 0 10px #00ff99;
-    }
-
-    #sendBtn {
-      background: #00ff66;
+    .chat-input input {
+      flex: 1;
+      background: #222;
+      color: #eee;
+      padding: 10px 12px;
       border: none;
-      border-radius: 25px;
-      color: #002200;
-      font-weight: 700;
-      font-size: 1.2rem;
-      padding: 0 1.8rem;
+      outline: none;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .chat-input button {
+      margin-left: 10px;
+      padding: 10px 18px;
+      border: none;
+      background: #00ff00;
+      color: #000;
+      font-weight: bold;
+      border-radius: 4px;
       cursor: pointer;
-      user-select: none;
-      box-shadow: 0 0 15px #00ff66;
-      transition: background-color 0.3s ease;
-    }
-    #sendBtn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-    #sendBtn:hover:not(:disabled) {
-      background-color: #00ff99;
-      box-shadow: 0 0 20px #00ff99;
+      transition: background 0.2s ease;
     }
 
-    /* Typing indicator */
-    #typing {
-      padding-left: 1.5rem;
-      font-style: italic;
-      color: #00ff00cc;
-      min-height: 1.4rem;
-      user-select: none;
-      font-size: 1rem;
-      text-shadow: 0 0 8px #00ff00cc;
+    .chat-input button:hover {
+      background: #22ff22;
     }
 
-    /* Responsive */
-    @media (max-width: 480px) {
-      #chat-container {
-        height: 95vh;
-        max-width: 100vw;
-        border-radius: 0;
-      }
-      #userInput {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-      }
-      #sendBtn {
-        font-size: 1rem;
-        padding: 0 1rem;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div id="chat-container" role="main" aria-label="Code Alchemist chat">
-    <header>Code Alchemist Chat</header>
-    <div id="chat" aria-live="polite" aria-atomic="false" tabindex="0"></div>
-    <div id="typing" aria-live="assertive" aria-atomic="true"></div>
-    <form id="input-area" onsubmit="return false;" aria-label="Send message form">
-      <input
-        id="userInput"
-        type="text"
-        autocomplete="off"
-        placeholder="Type your command..."
-        aria-label="User input"
-        required
-        spellcheck="false"
-      />
-      <button id="sendBtn" disabled aria-disabled="true" aria-label="Send message button">SEND</button>
-    </form>
+  <div class="chat-wrapper">
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off"/>
+      <button onclick="sendMessage()">→</button>
+    </div>
   </div>
 
   <script>
-    const chat = document.getElementById('chat');
-    const input = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const typing = document.getElementById('typing');
+    const API_KEY = 'YOUR_API_KEY'; // Ganti dengan OpenAI API key kamu
 
-    input.addEventListener('input', () => {
-      const val = input.value.trim();
-      sendBtn.disabled = val.length === 0;
-      sendBtn.setAttribute('aria-disabled', val.length === 0 ? 'true' : 'false');
-    });
-
-    function scrollBottom() {
-      chat.scrollTo({top: chat.scrollHeight, behavior: 'smooth'});
-    }
-
-    // Typewriter effect for AI response
-    function typeEffect(element, text, speed = 30, cb) {
-      let i = 0;
-      element.textContent = '';
-      function type() {
-        if(i < text.length){
-          element.textContent += text.charAt(i);
-          i++;
-          scrollBottom();
-          setTimeout(type, speed);
-        } else if(cb) cb();
-      }
-      type();
-    }
-
-    function appendMessage(text, sender){
-      const msg = document.createElement('div');
-      msg.classList.add('msg', sender);
-      msg.textContent = text;
-      chat.appendChild(msg);
-      scrollBottom();
-      return msg;
-    }
-
-    function getAIResponse(input) {
-      const msg = input.toLowerCase();
-      if(msg.includes('hello') || msg.includes('hi')){
-        return "Greetings, seeker of the Code Alchemist.";
-      } else if(msg.includes('help')){
-        return "Ask me about code, encryption, or the secrets of the digital forge.";
-      } else if(msg.includes('who are you')){
-        return "I am the digital alchemist, weaving code into magic.";
-      } else if(msg.includes('magic')){
-        return "True magic lies in the mastery of algorithms and logic.";
-      } else if(msg.includes('secret')){
-        return "The secret to code alchemy? Persistence and curiosity.";
-      } else {
-        return "The forge contemplates your words...";
-      }
-    }
-
-    async function sendMessage(){
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
       const userText = input.value.trim();
-      if(!userText) return;
+      if (!userText) return;
 
-      appendMessage(userText, 'user');
-      input.value = '';
-      sendBtn.disabled = true;
-      sendBtn.setAttribute('aria-disabled', 'true');
+      appendMessage("user", userText);
+      input.value = "";
+      appendMessage("bot", "Typing...");
 
-      typing.textContent = 'Code Alchemist is typing...';
-
-      // Simulate delay for typing
-      await new Promise(r => setTimeout(r, 1000));
-
-      typing.textContent = '';
-      const botMsg = appendMessage('', 'bot');
-      typeEffect(botMsg, getAIResponse(userText), 25);
+      const reply = await getChatGPTReply(userText);
+      const botMessages = document.querySelectorAll(".bot-message");
+      botMessages[botMessages.length - 1].textContent = reply;
     }
 
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', e => {
-      if(e.key === 'Enter' && !sendBtn.disabled){
-        sendMessage();
-      }
-    });
+    function appendMessage(sender, text) {
+      const chatBox = document.getElementById("chat-box");
+      const message = document.createElement("div");
+      message.className = `chat-message ${sender}-message`;
+      message.textContent = text;
+      chatBox.appendChild(message);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
+    async function getChatGPTReply(prompt) {
+      try {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: prompt }],
+            max_tokens: 100,
+            temperature: 0.7
+          })
+        });
+
+        const data = await response.json();
+        if (data.choices && data.choices.length > 0) {
+          return data.choices[0].message.content.trim();
+        } else {
+          return "Maaf, tidak ada respons dari AI.";
+        }
+      } catch (err) {
+        return "Terjadi kesalahan saat menghubungi API.";
+      }
+    }
+
+    document.getElementById("user-input").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendMessage();
+    });
   </script>
 </body>
 </html>
