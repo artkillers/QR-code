@@ -200,7 +200,80 @@
   const settingsPanel = document.getElementById('settingsPanel');
   const themeSelect = document.getElementById('themeSelect');
   const colorPicker = document.getElementById('colorPicker');
-  const fontSelect = document.getElementById('fontSelect');btnPlayPause.addEventListener('click', () => { if (audio.paused) { audio.play(); } else { audio.pause(); } }); audio.addEventListener('play', () => { iconPlay.style.display = 'none'; iconPause.style.display = 'block'; }); audio.addEventListener('pause', () => { iconPlay.style.display = 'block'; iconPause.style.display = 'none'; }); audio.addEventListener('timeupdate', () => { const progressPercent = (audio.currentTime / audio.duration) * 100; progress.style.width = progressPercent + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); durationEl.textContent = formatTime(audio.duration); }); progressContainer.addEventListener('click', (e) => { const width = progressContainer.clientWidth; const clickX = e.offsetX; const duration = audio.duration; audio.currentTime = (clickX / width) * duration; }); function formatTime(seconds) { const min = Math.floor(seconds / 60) || 0; const sec = Math.floor(seconds % 60) || 0; return ${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}; } settingsToggle.addEventListener('click', () => { settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block'; }); themeSelect.addEventListener('change', () => { document.body.classList.toggle('light', themeSelect.value === 'light'); }); colorPicker.addEventListener('input', () => { document.body.style.setProperty('--accent-color', colorPicker.value); }); fontSelect.addEventListener('change', () => { document.body.style.fontFamily = fontSelect.value; }); window.addEventListener('DOMContentLoaded', () => { if (themeSelect.value === 'light') { document.body.classList.add('light'); } document.body.style.setProperty('--accent-color', colorPicker.value); document.body.style.fontFamily = fontSelect.value; }); </script>
+  const fontSelect = document.getElementById('fontSelect');
+
+  // Play/Pause toggle
+  btnPlayPause.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  // Update icon on play/pause
+  audio.addEventListener('play', () => {
+    iconPlay.style.display = 'none';
+    iconPause.style.display = 'block';
+  });
+
+  audio.addEventListener('pause', () => {
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  });
+
+  // Update progress bar and time
+  audio.addEventListener('timeupdate', () => {
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = progressPercent + '%';
+    currentTimeEl.textContent = formatTime(audio.currentTime);
+    durationEl.textContent = formatTime(audio.duration);
+  });
+
+  // Seek audio
+  progressContainer.addEventListener('click', (e) => {
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+    audio.currentTime = (clickX / width) * duration;
+  });
+
+  // Format time in MM:SS
+  function formatTime(seconds) {
+    const min = Math.floor(seconds / 60) || 0;
+    const sec = Math.floor(seconds % 60) || 0;
+    return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+  }
+
+  // Toggle settings panel
+  settingsToggle.addEventListener('click', () => {
+    settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Theme switch
+  themeSelect.addEventListener('change', () => {
+    document.body.classList.toggle('light', themeSelect.value === 'light');
+  });
+
+  // Accent color picker
+  colorPicker.addEventListener('input', () => {
+    document.body.style.setProperty('--accent-color', colorPicker.value);
+  });
+
+  // Font selector
+  fontSelect.addEventListener('change', () => {
+    document.body.style.fontFamily = fontSelect.value;
+  });
+
+  // Initial load
+  window.addEventListener('DOMContentLoaded', () => {
+    if (themeSelect.value === 'light') {
+      document.body.classList.add('light');
+    }
+    document.body.style.setProperty('--accent-color', colorPicker.value);
+    document.body.style.fontFamily = fontSelect.value;
+  });
+</script>
 
 </body>
 </html>
