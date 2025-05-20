@@ -14,9 +14,11 @@ body {
 
 /* Container */
 .container {
-  max-width: 900px;
-  margin: auto;
-  padding: 1rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
 }
 
 /* Profile section */
@@ -103,7 +105,7 @@ body {
   border-radius: 10px;
 }
 
-/* Tab item */
+/* Tab item 
 .tab-item {
   flex: 0 0 auto;
   padding: 0.7rem 1.6rem;
@@ -127,14 +129,29 @@ body {
   color: #00ff88;
   background-color: rgba(0, 255, 136, 0.05);
 }
-
+*/
 /* Tab sections */
-.tab-section {
+.tab-item {
   display: none;
 }
 
-.tab-section.active {
+.tab-item.active {
   display: block;
+}
+.tab-item {
+  cursor: pointer;
+  padding: 6px 12px;
+  border: 2px solid #00ff88
+  border-radius: 4px;
+  background: transparent;
+  font-weight: 600;
+  color: #00ff88
+  transition: background-color 0.3s, color 0.3s;
+}
+.tab-item.active,
+.tab-item:hover {
+  background-color: rgba(0, 255, 136, 0.05);
+  color: #00ff88;
 }
 
 /* Skills grid */
