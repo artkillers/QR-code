@@ -1,215 +1,364 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Code Alchemist AI Terminal</title>
-<style>
-  /* Reset & basics */
-  * {
-    box-sizing: border-box;
-  }
-  body, html {
-    margin: 0; padding: 0; height: 100%;
-    background-color: #000;
-    font-family: 'Courier New', monospace;
-    color: #00ff00;
-  }
-  #app {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    max-width: 800px;
-    margin: auto;
-    border: 2px solid #00ff00;
-    box-shadow: 0 0 15px #00ff00;
-  }
-  header {
-    padding: 10px 20px;
-    font-weight: bold;
-    font-size: 1.3rem;
-    border-bottom: 1px solid #00ff00;
-    user-select: none;
-  }
-  #terminal {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    white-space: pre-wrap;
-  }
-  .line {
-    margin-bottom: 10px;
-  }
-  .user {
-    color: #00cc00;
-  }
-  .ai {
-    color: #00ff00;
-  }
-  #typing {
-    font-style: italic;
-    color: #009900;
-    margin-bottom: 10px;
-  }
-  #input-area {
-    display: flex;
-    border-top: 1px solid #00ff00;
-    padding: 10px 20px;
-    background: #001100;
-  }
-  #userInput {
-    flex-grow: 1;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #00ff00;
-    color: #00ff00;
-    font-size: 1rem;
-    padding: 5px;
-    outline: none;
-  }
-  #sendBtn {
-    background: #00ff00;
-    border: none;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px 15px;
-    margin-left: 10px;
-    transition: background 0.3s ease;
-  }
-  #sendBtn:hover:not(:disabled) {
-    background: #00cc00;
-  }
-  #sendBtn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Code Alchemist Cyber Terminal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-  /* Scrollbar for terminal */
-  #terminal::-webkit-scrollbar {
-    width: 8px;
-  }
-  #terminal::-webkit-scrollbar-track {
-    background: #000;
-  }
-  #terminal::-webkit-scrollbar-thumb {
-    background: #00ff00;
-    border-radius: 4px;
-  }
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin:0; padding:0; height: 100%;
+      background: #000;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      overflow: hidden;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Background grid + scanlines */
+    body::before {
+      content: '';
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background:
+        linear-gradient(rgba(0,255,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,0,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background:
+        repeating-linear-gradient(rgba(0,255,0,0.02), rgba(0,255,0,0.02) 2px, transparent 3px, transparent 4px);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  /* Responsive */
-  @media (max-width: 600px) {
+    /* Container */
     #app {
-      border: none;
-      box-shadow: none;
-      height: 100vh;
-      max-width: 100%;
+      position: relative;
+      background: rgba(0, 30, 0, 0.8);
+      border: 2px solid #0f0;
+      box-shadow: 0 0 20px #0f0;
+      width: 90vw;
+      max-width: 800px;
+      height: 85vh;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+      border-radius: 8px;
+      overflow: hidden;
     }
-    #input-area {
-      padding: 8px 12px;
+
+    header {
+      padding: 15px 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-shadow:
+        0 0 5px #0f0,
+        0 0 10px #0f0,
+        0 0 20px #0f0;
+      border-bottom: 1px solid #0f0;
+      user-select: text;
     }
-    #userInput {
-      font-size: 1rem;
+
+    /* Terminal output */
+    #terminal {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      text-shadow:
+        0 0 2px #0f0,
+        0 0 5px #0f0;
+      filter: drop-shadow(0 0 0.2rem #0f0);
+      letter-spacing: 0.04em;
+      background: rgba(0,0,0,0.5);
+      scrollbar-width: thin;
+      scrollbar-color: #0f0 transparent;
     }
-  }
-</style>
-</head>
-<body>
-<div id="app">
-  <header>Code Alchemist AI Terminal</header>
-  <div id="terminal">
-    <div class="line ai">Welcome, seeker of knowledge. Speak your query to the digital forge...</div>
-  </div>
-  <div id="typing" style="display:none;">AI is crafting your response...</div>
-  <form id="input-area" onsubmit="return false;">
-    <input type="text" id="userInput" autocomplete="off" placeholder="Type your message..." />
-    <button id="sendBtn" disabled>Send</button>
-  </form>
-</div>
+    #terminal::-webkit-scrollbar {
+      width: 8px;
+    }
+    #terminal::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #terminal::-webkit-scrollbar-thumb {
+      background: #0f0;
+      border-radius: 4px;
+    }
 
-<script>
-  const terminal = document.getElementById('terminal');
-  const userInput = document.getElementById('userInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const typingIndicator = document.getElementById('typing');
+    /* Lines */
+    .line {
+      margin-bottom: 1em;
+      position: relative;
+    }
+    .user {
+      color: #0ff;
+      text-shadow: 0 0 8px #0ff;
+    }
+    .ai {
+      color: #0f0;
+      text-shadow:
+        0 0 5px #0f0,
+        0 0 10px #0f0;
+    }
 
-  // Enable send button if input has text
-  userInput.addEventListener('input', () => {
-    sendBtn.disabled = userInput.value.trim() === '';
-  });
-
-  // Scroll terminal to bottom
-  function scrollTerminal() {
-    terminal.scrollTop = terminal.scrollHeight;
-  }
-
-  // Typing effect for AI response
-  function typeText(element, text, speed = 40, callback) {
-    let i = 0;
-    element.textContent = '';
-    function typing() {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        i++;
-        setTimeout(typing, speed);
-      } else if (callback) {
-        callback();
+    /* Glitch effect */
+    @keyframes glitch {
+      0% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(0);
+      }
+      20% {
+        clip-path: inset(10% 0 85% 0);
+        transform: translate(-2px, -2px);
+      }
+      40% {
+        clip-path: inset(85% 0 10% 0);
+        transform: translate(2px, 2px);
+      }
+      60% {
+        clip-path: inset(10% 0 85% 0);
+        transform: translate(-2px, 2px);
+      }
+      80% {
+        clip-path: inset(85% 0 10% 0);
+        transform: translate(2px, -2px);
+      }
+      100% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(0);
       }
     }
-    typing();
-  }
-
-  // Print a line to terminal
-  function printLine(text, className) {
-    const div = document.createElement('div');
-    div.className = 'line ' + className;
-    terminal.appendChild(div);
-    return div;
-  }
-
-  // Fake AI response for demo - replace with real API call later
-  function fakeAIResponse(msg) {
-    msg = msg.toLowerCase();
-    if (msg.includes('hello') || msg.includes('hi')) return "Greetings, Code Alchemist.";
-    if (msg.includes('help')) return "Type anything you wish to know. I am here to guide.";
-    if (msg.includes('who')) return "I am the digital spirit forged in code and alchemy.";
-    if (msg.includes('magic')) return "Alchemy is the art of transforming the impossible into reality.";
-    return "The digital forge contemplates your request...";
-  }
-
-  // Handle sending message
-  function sendMessage() {
-    const message = userInput.value.trim();
-    if (!message) return;
-    sendBtn.disabled = true;
-    userInput.value = '';
-
-    // Print user message
-    printLine('> ' + message, 'user');
-    scrollTerminal();
-
-    // Show typing indicator
-    typingIndicator.style.display = 'block';
-
-    // Simulate AI delay
-    setTimeout(() => {
-      typingIndicator.style.display = 'none';
-      const aiLine = printLine('', 'ai');
-      scrollTerminal();
-      typeText(aiLine, fakeAIResponse(message), 30, scrollTerminal);
-    }, 800);
-  }
-
-  sendBtn.addEventListener('click', sendMessage);
-  userInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      sendMessage();
+    .glitch {
+      animation: glitch 1s infinite;
     }
-  });
 
-  // Focus input on load
-  userInput.focus();
-</script>
+    /* Input area */
+    #input-area {
+      display: flex;
+      border-top: 1px solid #0f0;
+      background: rgba(0,10,0,0.9);
+      padding: 15px 20px;
+      align-items: center;
+    }
+    #userInput {
+      flex-grow: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #0f0;
+      color: #0f0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.2rem;
+      padding: 10px 15px;
+      outline: none;
+      letter-spacing: 0.05em;
+      transition: border-color 0.3s ease;
+    }
+    #userInput::placeholder {
+      color: #055005;
+      font-style: italic;
+      opacity: 0.7;
+    }
+    #userInput:focus {
+      border-color: #0ff;
+      box-shadow: 0 0 8px #0ff;
+    }
+    #sendBtn {
+      margin-left: 15px;
+      background: #0f0;
+      border: none;
+      color: #000;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-shadow: 0 0 2px #000;
+      transition: background-color 0.25s ease;
+      user-select: none;
+    }
+    #sendBtn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: #055005;
+    }
+    #sendBtn:hover:not(:disabled) {
+      background-color: #0ff;
+      color: #000;
+      text-shadow: none;
+    }
+
+    /* Typing indicator */
+    #typing {
+      padding: 10px 20px;
+      font-style: italic;
+      color: #0f0;
+      text-shadow: 0 0 5px #0f0;
+      height: 1.2em;
+      user-select: none;
+      min-height: 1.2em;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      #app {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      #userInput {
+        font-size: 1rem;
+        padding: 8px 12px;
+      }
+      #sendBtn {
+        font-size: 1rem;
+        padding: 8px 15px;
+        margin-left: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" role="main" aria-label="Code Alchemist AI Terminal">
+    <header>Code Alchemist Cyber Terminal</header>
+    <div id="terminal" aria-live="polite" aria-atomic="false"></div>
+    <div id="typing" aria-live="assertive" aria-atomic="true" aria-relevant="additions"></div>
+    <form id="input-area" onsubmit="return false;" aria-label="Send message form">
+      <input
+        id="userInput"
+        type="text"
+        autocomplete="off"
+        placeholder="Invoke the alchemy... (type here)"
+        aria-label="User input"
+        required
+      />
+      <button id="sendBtn" disabled aria-disabled="true" aria-label="Send message button">SEND</button>
+    </form>
+  </div>
+
+  <script>
+    const terminal = document.getElementById('terminal');
+    const input = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const typing = document.getElementById('typing');
+
+    // Enable/disable send button depending on input
+    input.addEventListener('input', () => {
+      const val = input.value.trim();
+      sendBtn.disabled = val.length === 0;
+      sendBtn.setAttribute('aria-disabled', val.length === 0 ? 'true' : 'false');
+    });
+
+    // Scroll terminal to bottom helper
+    function scrollBottom() {
+      terminal.scrollTo({top: terminal.scrollHeight, behavior: 'smooth'});
+    }
+
+    // Typing effect for AI messages
+    function typeEffect(element, text, speed = 30, callback) {
+      let index = 0;
+      element.textContent = '';
+      function type() {
+        if (index < text.length) {
+          element.textContent += text.charAt(index);
+          index++;
+          setTimeout(type, speed);
+          scrollBottom();
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    // Append a line to terminal with class
+    function appendLine(text, className) {
+      const line = document.createElement('div');
+      line.classList.add('line', className);
+      line.textContent = text;
+      terminal.appendChild(line);
+      scrollBottom();
+      return line;
+    }
+
+    // Simulated AI response (replace with real API later)
+    function getAIResponse(message) {
+      const m = message.toLowerCase();
+      if (m.includes('hello') || m.includes('hi')) return "Greetings, seeker of the Code Alchemist.";
+      if (m.includes('help')) return "Invoke commands or ask about coding alchemy.";
+      if (m.includes('who')) return "I am the digital spirit forged from code and cyber magic.";
+      if (m.includes('magic')) return "Alchemy is transforming the impossible into reality, just like code.";
+      if (m.includes('secret')) return "The secret lies in the art of debugging.";
+      return "The cyber forge contemplates your query...";
+    }
+
+    // Handle sending message
+    function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Disable input and button while responding
+      sendBtn.disabled = true;
+      sendBtn.setAttribute('aria-disabled', 'true');
+      input.value = '';
+      input.disabled = true;
+
+      // Append user message
+      appendLine('> ' + message, 'user');
+
+      // Show typing indicator
+      typing.textContent = '⧗ Alchemist is forging response...';
+      typing.style.opacity = '1';
+
+      // Simulate delay then show AI response with typing effect
+      setTimeout(() => {
+        typing.style.opacity = '0';
+        const aiLine = document.createElement('div');
+        aiLine.classList.add('line', 'ai', 'glitch');
+        terminal.appendChild(aiLine);
+        scrollBottom();
+
+        typeEffect(aiLine, getAIResponse(message), 30, () => {
+          aiLine.classList.remove('glitch');
+          // Re-enable input
+          input.disabled = false;
+          input.focus();
+          sendBtn.disabled = true;
+          sendBtn.setAttribute('aria-disabled', 'true');
+        });
+      }, 1200);
+    }
+
+    // Event listeners for button click and Enter key
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Focus input on load
+    window.onload = () => {
+      input.focus();
+      appendLine('Welcome to the Code Alchemist Cyber Terminal. Type your query and press Enter.', 'ai');
+    };
+  </script>
 </body>
 </html>
