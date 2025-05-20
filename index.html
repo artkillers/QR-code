@@ -294,6 +294,12 @@
     background-color: #00ff00;
     color: #010a0a;
   }
+  
+  .typed-text {
+      font-size: 1.3em;
+      margin-top: 10px;
+      color: #00ff00;
+    }
 
   .container {
     max-width: 1200px;
@@ -354,7 +360,9 @@
       <br>
       <h1 class="glitch" data-text="Code Alchemist">Code Alchemist</h1>
       <br>
-      <p>Enthusiast | Developer | Hacker</p>
+      <div class="typed-text">
+      <span id="typed"></span>
+      </div>
       <br>
       <p>
       <br>
@@ -372,9 +380,9 @@
 
     <section id="skills" class="tab-section active">
       <br>
-      <p>Each Skill Percentage</p>
+      <h1 class="glitch" data-text="Each Skill Percentage">Each Skill Percentage</h1>
       <br>
-      <h2 class="glitch" data-text=""><i class="fas fa-brain"></i></h2>
+      <h2 class="glitch" data-text=""><i class="fas fa-brain"></i></h2>
       <div class="skills-grid">
         <!-- Each skill with icon and animated percentage fill -->
         <div class="skill" data-percent="90" title="HTML5">
@@ -412,9 +420,9 @@
 
     <section id="projects" class="tab-section">
       <br>
-      <p>Latest Projects</p>
+      <h1 class="glitch" data-text="Latest Projects">Latest Projects</h1>
       <br>
-      <h2 class="glitch" data-text=""><i class="fas fa-code-branch"></i></h2>
+      <h2 class="glitch" data-text=""><i class="fas fa-code-branch"></i></h2>
       <div class="projects-grid">
         <!-- Project cards -->
         <div class="project-card">
@@ -434,9 +442,9 @@
  
     <section id="contact" class="tab-section">
       <br>
-      <p>Get In Touch</p>
+      <h1 class="glitch" data-text="Get In Touch">Get In Touch</h1>
       <br>
-      <h2 class="glitch" data-text=""><i class="fas fa-envelope"></i></h2>
+      <h2 class="glitch" data-text=""><i class="fas fa-envelope"></i></h2>
       <form onsubmit="event.preventDefault(); alert('Thank you for reaching out!'); this.reset();">
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
@@ -445,7 +453,7 @@
       </form>
     </section>
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script>
     // Skill liquid fill animation with percentage counting
     document.querySelectorAll('.skill').forEach((skill) => {
@@ -501,5 +509,28 @@
       });
     });
   </script>
+  <script>
+  new Typed("#typed", {
+    strings: [
+      "Enthusiast",
+      "Developer",
+      "Explorer",
+      "Hacker"
+    ],
+    typeSpeed: 50,
+    backSpeed: 30,
+    loop: true
+  });
+  </script>
+  <script>
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(link.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
 </body>
 </html>
