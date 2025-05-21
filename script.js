@@ -71,9 +71,3 @@ fontSelect.addEventListener('change', () => {
   document.body.style.fontFamily = fontSelect.value;
 });
 
-// Text/icon color switch
-textColor.addEventListener('change', () => {
-  const color = textColor.value;
-  document.body.style.setProperty('--text-light', color === 'white' ? '#fff' : '#111');
-  document.body.style.setProperty('--text-dark', color === 'white' ? '#fff' : '#111');
-});
