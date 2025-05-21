@@ -69,10 +69,43 @@ body.light .player-container {
   letter-spacing: 0.05em;
 }
 
+.song-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 8px;
+  user-select: none;
+  letter-spacing: 0.03em;
+}
+
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+}
+
+.btn-prev, .btn-next {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  color: inherit;
+  box-shadow:
+    6px 6px 8px rgba(0, 0, 0, 0.7),
+    -6px -6px 8px rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: box-shadow 0.3s ease, color 0.3s ease;
+  font-size: 20px;
+}
+
+.btn-prev:hover, .btn-next:hover {
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.8),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.2);
 }
 
 .btn-playpause {

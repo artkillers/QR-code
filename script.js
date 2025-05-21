@@ -63,8 +63,8 @@ function formatTime(seconds) {
 }
 
 const playlist = [
-  { title: "Track 1", src: "audio.mp3" },
-  { title: "Track 2", src: "musik.mp3" },
+  { title: "Sound Track", src: "audio.mp3" },
+  { title: "Sound Track", src: "musik.mp3" },
 ];
 
 let currentTrack = 0;
