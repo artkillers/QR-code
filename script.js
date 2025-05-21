@@ -121,16 +121,3 @@ document.addEventListener('click', function(event) {
     settingsPanel.setAttribute('aria-hidden', 'true');
   }
 });
-
-// Tambahan cek untuk memastikan tombol play berfungsi
-btnPlayPause.addEventListener('click', () => {
-  if (audio.readyState >= 2) {
-    if (audio.paused) {
-      audio.play().catch(e => console.log("Playback error:", e));
-    } else {
-      audio.pause();
-    }
-  } else {
-    console.log("Audio belum siap.");
-  }
-});
