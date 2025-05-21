@@ -1,4 +1,5 @@
-// Elements
+// ==================== ELEMENT SELECTORS ====================
+
 const audio = document.getElementById('audio');
 const btnPlayPause = document.getElementById('btnPlayPause');
 const iconPlay = document.getElementById('iconPlay');
@@ -7,23 +8,21 @@ const progressContainer = document.getElementById('progressContainer');
 const progress = document.getElementById('progress');
 const currentTimeEl = document.getElementById('currentTime');
 const durationEl = document.getElementById('duration');
-
 const settingsToggle = document.getElementById('settingsToggle');
 const settingsPanel = document.getElementById('settingsPanel');
-
 const themeSelect = document.getElementById('themeSelect');
 const fontSelect = document.getElementById('fontSelect');
+const floatToggle = document.getElementById('floatToggle');
+const player = document.querySelector('.player-container');
+
+// ==================== AUDIO PLAYER LOGIC ====================
 
 // Play/pause toggle
 btnPlayPause.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+  audio.paused ? audio.play() : audio.pause();
 });
 
-// Update play/pause icon
+// Toggle play/pause icon
 audio.addEventListener('play', () => {
   iconPlay.style.display = 'none';
   iconPause.style.display = 'block';
@@ -33,34 +32,33 @@ audio.addEventListener('pause', () => {
   iconPause.style.display = 'none';
 });
 
-// Update progress bar & time
+// Progress bar update
 audio.addEventListener('timeupdate', () => {
   if (audio.duration) {
-    const progressPercent = (audio.currentTime / audio.duration) * 100;
-    progress.style.width = progressPercent + '%';
-
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = percent + '%';
     currentTimeEl.textContent = formatTime(audio.currentTime);
     durationEl.textContent = formatTime(audio.duration);
   }
 });
 
-// Seek audio on progress bar click
+// Click-to-seek
 progressContainer.addEventListener('click', e => {
   const width = progressContainer.clientWidth;
   const clickX = e.offsetX;
-  const duration = audio.duration;
-
-  if(duration) {
-    audio.currentTime = (clickX / width) * duration;
+  if (audio.duration) {
+    audio.currentTime = (clickX / width) * audio.duration;
   }
 });
 
-// Format seconds to mm:ss
+// Format time mm:ss
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${mins < 10 ? '0' + mins : mins}:${secs < 10 ? '0' + secs : secs}`;
 }
+
+// ==================== PLAYLIST CONTROL ====================
 
 const playlist = [
   { title: "Sound Track", src: "audio.mp3" },
@@ -88,84 +86,65 @@ document.getElementById("btnPrev").addEventListener("click", () => {
   audio.play();
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-  loadTrack(currentTrack);
-});
+// ==================== UI SETTINGS (THEME & FONT) ====================
 
-// ========================================== \\
-
-// Toggle settings panel visibility
-settingsToggle.addEventListener('click', () => {
-  if (settingsPanel.style.display === 'block') {
-    settingsPanel.style.display = 'none';
-    settingsPanel.setAttribute('aria-hidden', 'true');
-  } else {
-    settingsPanel.style.display = 'block';
-    settingsPanel.setAttribute('aria-hidden', 'false');
-  }
-});
-
-// Apply saved or default theme and font on load
-window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  const savedFont = localStorage.getItem('font') || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-
-  themeSelect.value = savedTheme;
-  fontSelect.value = savedFont;
-
-  applyTheme(savedTheme);
-  applyFont(savedFont);
-});
-
-// Theme selection handler
 themeSelect.addEventListener('change', e => {
   const theme = e.target.value;
   applyTheme(theme);
   localStorage.setItem('theme', theme);
 });
 
-function applyTheme(theme) {
-  if (theme === 'light') {
-    document.body.classList.add('light');
-  } else {
-    document.body.classList.remove('light');
-  }
-}
-
-// Font selection handler
 fontSelect.addEventListener('change', e => {
   const font = e.target.value;
   applyFont(font);
   localStorage.setItem('font', font);
 });
 
+function applyTheme(theme) {
+  document.body.classList.toggle('light', theme === 'light');
+}
+
 function applyFont(font) {
   document.body.style.fontFamily = font;
 }
 
-const floatToggle = document.getElementById('floatToggle');
-const playerContainer = document.querySelector('.player-container');
+// ==================== TOGGLE BEHAVIOR ====================
 
-floatToggle.addEventListener('click', () => {
-  player.classList.toggle('floating');
+document.addEventListener("DOMContentLoaded", () => {
+  // Load default track
+  loadTrack(currentTrack);
+
+  // Apply saved settings
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  const savedFont = localStorage.getItem('font') || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+  themeSelect.value = savedTheme;
+  fontSelect.value = savedFont;
+  applyTheme(savedTheme);
+  applyFont(savedFont);
+
+  // Sembunyikan player & settings saat awal
+  player.style.display = "none";
+  settingsPanel.style.display = "none";
+
+  // Toggle player
+  floatToggle.addEventListener("click", e => {
+    e.stopPropagation();
+    player.style.display = player.style.display === "flex" ? "none" : "flex";
+  });
+
+  // Toggle settings
+  settingsToggle.addEventListener("click", e => {
+    e.stopPropagation();
+    settingsPanel.style.display = settingsPanel.style.display === "block" ? "none" : "block";
+  });
+
+  // Klik di luar untuk tutup semua
+  document.addEventListener("click", e => {
+    if (!player.contains(e.target) && !floatToggle.contains(e.target)) {
+      player.style.display = "none";
+    }
+    if (!settingsPanel.contains(e.target) && !settingsToggle.contains(e.target)) {
+      settingsPanel.style.display = "none";
+    }
+  });
 });
-
-floatToggle.addEventListener('click', () => {
-  if (playerContainer.style.display === 'none') {
-    playerContainer.style.display = 'block';
-  } else {
-    playerContainer.style.display = 'none';
-  }
-});
-
-// Close settings panel if clicking outside
-document.addEventListener('click', function(event) {
-  if (
-    !settingsPanel.contains(event.target) &&
-    !settingsToggle.contains(event.target)
-  ) {
-    settingsPanel.style.display = 'none';
-    settingsPanel.setAttribute('aria-hidden', 'true');
-  }
-});
-
