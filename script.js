@@ -62,6 +62,38 @@ function formatTime(seconds) {
   return `${mins < 10 ? '0' + mins : mins}:${secs < 10 ? '0' + secs : secs}`;
 }
 
+const playlist = [
+  { title: "Track 1", src: "audio.mp3" },
+  { title: "Track 2", src: "musik.mp3" },
+];
+
+let currentTrack = 0;
+
+function loadTrack(index) {
+  const track = playlist[index];
+  audio.src = track.src;
+  document.getElementById("songTitle").textContent = track.title;
+  audio.load();
+}
+
+document.getElementById("btnNext").addEventListener("click", () => {
+  currentTrack = (currentTrack + 1) % playlist.length;
+  loadTrack(currentTrack);
+  audio.play();
+});
+
+document.getElementById("btnPrev").addEventListener("click", () => {
+  currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+  loadTrack(currentTrack);
+  audio.play();
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  loadTrack(currentTrack);
+});
+
+// ========================================== \\
+
 // Toggle settings panel visibility
 settingsToggle.addEventListener('click', () => {
   if (settingsPanel.style.display === 'block') {

@@ -11,25 +11,33 @@
 <body>
   <div class="player-container">
     <img src="picture.png" alt="Cover Art" class="cover" />
-    
     <div class="title">Alchemist Stream</div>
-    
+    <div id="songTitle" class="song-title">Sound Track</div>
+
     <div class="controls">
-      <button class="btn-playpause" id="btnPlayPause">
+      <button class="btn-prev" id="btnPrev" title="Previous Song">
+        <i class="fas fa-backward"></i>
+      </button>
+
+      <button class="btn-playpause" id="btnPlayPause" title="Play/Pause">
         <i class="fas fa-play" id="iconPlay"></i>
         <i class="fas fa-pause" id="iconPause" style="display:none;"></i>
       </button>
+
+      <button class="btn-next" id="btnNext" title="Next Song">
+        <i class="fas fa-forward"></i>
+      </button>
     </div>
-    
+
     <div class="progress-container" id="progressContainer">
       <div class="progress" id="progress"></div>
     </div>
-    
+
     <div class="time">
       <span id="currentTime">00:00</span>
       <span id="duration">00:00</span>
     </div>
-    
+
     <div class="socials">
       <a href="#"><i class="fab fa-github"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
@@ -59,6 +67,7 @@
       <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
     </select>
   </div>
-  <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="metadata"></audio>
+
+  <audio id="audio" src="audio.mp3" preload="metadata"></audio>
 </body>
 </html>
