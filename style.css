@@ -1,0 +1,150 @@
+:root {
+  --accent: #00c97d;
+  --bg-dark: #1c1c1c;
+  --bg-light: #f4f4f4;
+  --text-dark: #111;
+  --text-light: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: 0.3s ease all;
+}
+
+body.light {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+.player-container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 16px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 201, 125, 0.3);
+}
+
+.cover {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px 0;
+  color: var(--accent);
+}
+
+.controls {
+  margin: 10px 0;
+}
+
+.btn-playpause {
+  width: 50px;
+  height: 50px;
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  color: #111;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.progress-container {
+  background: #444;
+  height: 8px;
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  background: var(--accent);
+  width: 0%;
+  height: 100%;
+}
+
+.time {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.socials a {
+  font-size: 22px;
+  color: var(--accent);
+  transition: 0.3s;
+}
+
+.settings-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: #111;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.settings-panel {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 15px;
+  border-radius: 12px;
+  width: 240px;
+  color: #fff;
+  display: none;
+}
+
+body.light .settings-panel {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+}
+
+.settings-panel label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+.settings-panel select {
+  width: 100%;
+  padding: 6px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: none;
+  background: #eee;
+}
