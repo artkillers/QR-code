@@ -82,7 +82,7 @@ body.light .player-container {
   justify-content: center;
   align-items: center;
   gap: 20px;
-}
+} 
 
 .btn-prev, .btn-next {
   background: transparent;
