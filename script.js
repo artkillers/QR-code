@@ -1,20 +1,21 @@
+// Elements
 const audio = document.getElementById('audio');
-const playBtn = document.getElementById('btnPlayPause');
+const btnPlayPause = document.getElementById('btnPlayPause');
 const iconPlay = document.getElementById('iconPlay');
 const iconPause = document.getElementById('iconPause');
-const progress = document.getElementById('progress');
 const progressContainer = document.getElementById('progressContainer');
+const progress = document.getElementById('progress');
 const currentTimeEl = document.getElementById('currentTime');
 const durationEl = document.getElementById('duration');
 
 const settingsToggle = document.getElementById('settingsToggle');
 const settingsPanel = document.getElementById('settingsPanel');
+
 const themeSelect = document.getElementById('themeSelect');
-const textColor = document.getElementById('textColor');
 const fontSelect = document.getElementById('fontSelect');
 
-// Play / Pause Logic
-playBtn.addEventListener('click', () => {
+// Play/pause toggle
+btnPlayPause.addEventListener('click', () => {
   if (audio.paused) {
     audio.play();
   } else {
@@ -22,6 +23,7 @@ playBtn.addEventListener('click', () => {
   }
 });
 
+// Update icons
 audio.addEventListener('play', () => {
   iconPlay.style.display = 'none';
   iconPause.style.display = 'block';
@@ -31,15 +33,16 @@ audio.addEventListener('pause', () => {
   iconPause.style.display = 'none';
 });
 
-// Update progress
+// Time and progress
 audio.addEventListener('timeupdate', () => {
-  const percent = (audio.currentTime / audio.duration) * 100;
-  progress.style.width = percent + '%';
-  currentTimeEl.textContent = formatTime(audio.currentTime);
-  durationEl.textContent = formatTime(audio.duration);
+  if (audio.duration) {
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = percent + '%';
+    currentTimeEl.textContent = formatTime(audio.currentTime);
+    durationEl.textContent = formatTime(audio.duration);
+  }
 });
 
-// Seek
 progressContainer.addEventListener('click', (e) => {
   const width = progressContainer.clientWidth;
   const clickX = e.offsetX;
@@ -49,25 +52,31 @@ progressContainer.addEventListener('click', (e) => {
   }
 });
 
-// Format time
-function formatTime(s) {
-  const min = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
+function formatTime(seconds) {
+  const min = Math.floor(seconds / 60) || 0;
+  const sec = Math.floor(seconds % 60) || 0;
   return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
 }
 
-// Toggle settings panel
+// Toggle settings
 settingsToggle.addEventListener('click', () => {
   settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
 });
 
-// Theme switch
+// Theme
 themeSelect.addEventListener('change', () => {
   document.body.classList.toggle('light', themeSelect.value === 'light');
 });
 
-// Font switch
+// Font
 fontSelect.addEventListener('change', () => {
   document.body.style.fontFamily = fontSelect.value;
 });
 
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+  if (themeSelect.value === 'light') {
+    document.body.classList.add('light');
+  }
+  document.body.style.fontFamily = fontSelect.value;
+});
