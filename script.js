@@ -110,3 +110,27 @@ fontSelect.addEventListener('change', e => {
 function applyFont(font) {
   document.body.style.fontFamily = font;
 }
+
+// Close settings panel if clicking outside
+document.addEventListener('click', function(event) {
+  if (
+    !settingsPanel.contains(event.target) &&
+    !settingsToggle.contains(event.target)
+  ) {
+    settingsPanel.style.display = 'none';
+    settingsPanel.setAttribute('aria-hidden', 'true');
+  }
+});
+
+// Tambahan cek untuk memastikan tombol play berfungsi
+btnPlayPause.addEventListener('click', () => {
+  if (audio.readyState >= 2) {
+    if (audio.paused) {
+      audio.play().catch(e => console.log("Playback error:", e));
+    } else {
+      audio.pause();
+    }
+  } else {
+    console.log("Audio belum siap.");
+  }
+});
