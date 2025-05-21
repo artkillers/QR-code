@@ -23,7 +23,7 @@ btnPlayPause.addEventListener('click', () => {
   }
 });
 
-// Update icons
+// Update play/pause icon
 audio.addEventListener('play', () => {
   iconPlay.style.display = 'none';
   iconPause.style.display = 'block';
@@ -33,50 +33,80 @@ audio.addEventListener('pause', () => {
   iconPause.style.display = 'none';
 });
 
-// Time and progress
+// Update progress bar & time
 audio.addEventListener('timeupdate', () => {
   if (audio.duration) {
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progress.style.width = percent + '%';
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = progressPercent + '%';
+
     currentTimeEl.textContent = formatTime(audio.currentTime);
     durationEl.textContent = formatTime(audio.duration);
   }
 });
 
-progressContainer.addEventListener('click', (e) => {
+// Seek audio on progress bar click
+progressContainer.addEventListener('click', e => {
   const width = progressContainer.clientWidth;
   const clickX = e.offsetX;
   const duration = audio.duration;
-  if (duration) {
+
+  if(duration) {
     audio.currentTime = (clickX / width) * duration;
   }
 });
 
+// Format seconds to mm:ss
 function formatTime(seconds) {
-  const min = Math.floor(seconds / 60) || 0;
-  const sec = Math.floor(seconds % 60) || 0;
-  return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins < 10 ? '0' + mins : mins}:${secs < 10 ? '0' + secs : secs}`;
 }
 
-// Toggle settings
+// Toggle settings panel visibility
 settingsToggle.addEventListener('click', () => {
-  settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
-});
-
-// Theme
-themeSelect.addEventListener('change', () => {
-  document.body.classList.toggle('light', themeSelect.value === 'light');
-});
-
-// Font
-fontSelect.addEventListener('change', () => {
-  document.body.style.fontFamily = fontSelect.value;
-});
-
-// Init
-window.addEventListener('DOMContentLoaded', () => {
-  if (themeSelect.value === 'light') {
-    document.body.classList.add('light');
+  if (settingsPanel.style.display === 'block') {
+    settingsPanel.style.display = 'none';
+    settingsPanel.setAttribute('aria-hidden', 'true');
+  } else {
+    settingsPanel.style.display = 'block';
+    settingsPanel.setAttribute('aria-hidden', 'false');
   }
-  document.body.style.fontFamily = fontSelect.value;
 });
+
+// Apply saved or default theme and font on load
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  const savedFont = localStorage.getItem('font') || "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+
+  themeSelect.value = savedTheme;
+  fontSelect.value = savedFont;
+
+  applyTheme(savedTheme);
+  applyFont(savedFont);
+});
+
+// Theme selection handler
+themeSelect.addEventListener('change', e => {
+  const theme = e.target.value;
+  applyTheme(theme);
+  localStorage.setItem('theme', theme);
+});
+
+function applyTheme(theme) {
+  if (theme === 'light') {
+    document.body.classList.add('light');
+  } else {
+    document.body.classList.remove('light');
+  }
+}
+
+// Font selection handler
+fontSelect.addEventListener('change', e => {
+  const font = e.target.value;
+  applyFont(font);
+  localStorage.setItem('font', font);
+});
+
+function applyFont(font) {
+  document.body.style.fontFamily = font;
+}
