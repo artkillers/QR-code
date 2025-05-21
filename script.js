@@ -92,6 +92,9 @@ window.addEventListener("DOMContentLoaded", () => {
   loadTrack(currentTrack);
 });
 
+const audio = document.getElementById("audio");
+audio.loop = true;
+
 // ========================================== \\
 
 // Toggle settings panel visibility
@@ -143,6 +146,23 @@ function applyFont(font) {
   document.body.style.fontFamily = font;
 }
 
+const floatToggle = document.getElementById('floatToggle');
+const player = document.querySelector('.player-container');
+
+floatToggle.addEventListener('click', () => {
+  player.classList.toggle('floating');
+});
+
+const playerContainer = document.querySelector('.player-container');
+
+floatToggle.addEventListener('click', () => {
+  if (playerContainer.style.display === 'none') {
+    playerContainer.style.display = 'block';
+  } else {
+    playerContainer.style.display = 'none';
+  }
+});
+
 // Close settings panel if clicking outside
 document.addEventListener('click', function(event) {
   if (
@@ -153,3 +173,4 @@ document.addEventListener('click', function(event) {
     settingsPanel.setAttribute('aria-hidden', 'true');
   }
 });
+
