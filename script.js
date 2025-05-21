@@ -92,9 +92,6 @@ window.addEventListener("DOMContentLoaded", () => {
   loadTrack(currentTrack);
 });
 
-const audio = document.getElementById("audio");
-audio.loop = true;
-
 // ========================================== \\
 
 // Toggle settings panel visibility
@@ -146,8 +143,13 @@ function applyFont(font) {
   document.body.style.fontFamily = font;
 }
 
-const playerContainer = document.querySelector('.player-container');
 const floatToggle = document.getElementById('floatToggle');
+const player = document.querySelector('.player-container');
+const playerContainer = document.querySelector('.player-container');
+
+floatToggle.addEventListener('click', () => {
+  player.classList.toggle('floating');
+});
 
 floatToggle.addEventListener('click', () => {
   if (playerContainer.style.display === 'none') {
