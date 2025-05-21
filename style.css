@@ -66,7 +66,6 @@ body.light .player-container {
 .title {
   font-weight: 700;
   font-size: 1.3rem;
-  margin-bottom: 20px;
   letter-spacing: 0.05em;
 }
 
@@ -75,7 +74,6 @@ body.light .player-container {
   font-size: 1.1rem;
   margin-top: 8px;
   user-select: none;
-  margin-bottom: 20px;
   letter-spacing: 0.03em;
 }
 
@@ -301,10 +299,22 @@ body.light .settings-panel select {
   
 }
 
+.float-toggle i {
+  font-size: 20px;
+  pointer-events: none;
+}
+
 .float-toggle:hover {
   box-shadow:
     inset 3px 3px 6px rgba(0,0,0,0.8),
     inset -3px -3px 6px rgba(255,255,255,0.2);
+}
+
+.player-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(200%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .player-container.floating {

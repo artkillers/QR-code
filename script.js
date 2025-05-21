@@ -144,7 +144,6 @@ function applyFont(font) {
 }
 
 const floatToggle = document.getElementById('floatToggle');
-const player = document.querySelector('.player-container');
 const playerContainer = document.querySelector('.player-container');
 
 floatToggle.addEventListener('click', () => {
