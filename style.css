@@ -1,13 +1,9 @@
 :root {
-  --accent-color: white;
-}
-
-body.light {
-  --accent-color: black;
-}
-
-body.dark {
-  --accent-color: white;
+  --accent: #f4f4f4;
+  --bg-dark: #1c1c1c;
+  --bg-light: #f4f4f4;
+  --text-dark: #111;
+  --text-light: #fff;
 }
 
 * {
