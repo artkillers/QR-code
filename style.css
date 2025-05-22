@@ -347,49 +347,6 @@ body.light .settings-panel select {
   transition: all 0.3s ease;
 }
 
-/* ===== Profile ===== */
-
-.profile-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 3rem 1rem;
-  gap: 1.5rem;
-}
-
-.profile-pic img {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--accent-color, #ccc);
-}
-
-.profile-name {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-color, #222);
-}
-
-.description {
-  max-width: 500px;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text-color, #444);
-}
-
-.social-links a {
-  font-size: 1.3rem;
-  color: var(--text-color, #222);
-  margin: 0 0.5rem;
-  transition: color 0.3s;
-}
-
-.social-links a:hover {
-  color: var(--accent-color, #00aaff);
-}
-
 /* ===== Responsive ===== */
 
 @media (max-width: 768px) {
