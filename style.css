@@ -176,6 +176,24 @@ body.light .progress {
 }
 
 /* ===== Settings ===== */
+
+body.view-mobile .player-container,
+body.view-mobile .main-wrapper {
+  max-width: 375px;
+  margin: auto;
+}
+
+body.view-tablet .player-container,
+body.view-tablet .main-wrapper {
+  max-width: 768px;
+  margin: auto;
+}
+
+body.view-desktop .player-container,
+body.view-desktop .main-wrapper {
+  max-width: 100%;
+}
+
 .settings-toggle, .float-toggle {
   position: fixed;
   right: 20px;

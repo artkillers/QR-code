@@ -86,7 +86,7 @@ document.getElementById("btnPrev").addEventListener("click", () => {
   audio.play();
 });
 
-// ==================== UI SETTINGS (THEME & FONT) ====================
+// ========== UI SETTINGS ( MODE | THEME | FONT) ===========
 
 themeSelect.addEventListener('change', e => {
   const theme = e.target.value;
@@ -107,6 +107,11 @@ function applyTheme(theme) {
 function applyFont(font) {
   document.body.style.fontFamily = font;
 }
+
+document.getElementById('view-mode').addEventListener('change', function() {
+document.body.classList.remove('view-mobile', 'view-tablet', 'view-desktop');
+document.body.classList.add(`view-${this.value}`);
+});
 
 // ==================== TOGGLE BEHAVIOR ====================
 
@@ -148,3 +153,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
