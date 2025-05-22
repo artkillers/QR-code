@@ -333,13 +333,6 @@ body.light .settings-panel select {
 
 /* ===== Floating Mode ===== */
 
-.player-container.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(200%);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
 .player-container.floating {
   position: fixed;
   bottom: 20px;
@@ -355,18 +348,6 @@ body.light .settings-panel select {
 }
 
 /* ===== Profile ===== */
-
-.player-container.view-mobile {
-  max-width: 360px;
-}
-
-.player-container.view-tablet {
-  max-width: 720px;
-}
-
-.player-container.view-desktop {
-  max-width: 1024px;
-}
 
 .profile-section {
   display: flex;
@@ -391,25 +372,6 @@ body.light .settings-panel select {
   color: var(--text-color, #222);
 }
 
-.typing-text {
-  font-size: 1.2rem;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid var(--text-color, #000);
-  width: 0;
-  animation: typing 3s steps(30, end) forwards, blink 0.7s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 22ch; }
-}
-
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
 .description {
   max-width: 500px;
   font-size: 1rem;
@@ -429,17 +391,6 @@ body.light .settings-panel select {
 }
 
 /* ===== Responsive ===== */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 @media (max-width: 768px) {
   .player-container {
