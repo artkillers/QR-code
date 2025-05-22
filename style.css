@@ -35,7 +35,7 @@ body.light {
   user-select: none;
   position: relative;
   box-shadow: 6px 6px 12px #0d0d0d, -6px -6px 12px #3a3a3a;
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+  transition: background 0.4s ease, box-shadow 0.4s ease, max-width 0.4s ease;
 }
 
 body.light .player-container {
@@ -177,23 +177,6 @@ body.light .progress {
 
 /* ===== Settings ===== */
 
-body.view-mobile .player-container,
-body.view-mobile .main-wrapper {
-  max-width: 375px;
-  margin: auto;
-}
-
-body.view-tablet .player-container,
-body.view-tablet .main-wrapper {
-  max-width: 768px;
-  margin: auto;
-}
-
-body.view-desktop .player-container,
-body.view-desktop .main-wrapper {
-  max-width: 100%;
-}
-
 .settings-toggle, .float-toggle {
   position: fixed;
   right: 20px;
@@ -295,19 +278,71 @@ body.light .settings-panel select {
   transition: all 0.3s ease;
 }
 
+.player-container.view-mobile {
+  max-width: 360px;
+}
+
+.player-container.view-tablet {
+  max-width: 720px;
+}
+
+.player-container.view-desktop {
+  max-width: 1024px;
+}
+
 /* ===== Responsive ===== */
+
+@media (max-width: 480px) {
+  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
+    max-width: 360px;
+    padding: 10px;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
+    max-width: 720px;
+    padding: 14px;
+  }
+}
+@media (min-width: 769px) {
+  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
+    max-width: 1024px;
+    padding: 18px;
+  }
+}
+
 @media (max-width: 768px) {
-  .player-container {
+  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
     width: 90%;
     padding: 16px;
   }
 }
 
 @media (max-width: 400px) {
-  .player-container {
+  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
     width: 95%;
     padding: 12px;
   }
+
+  .player-container .title {
+    font-size: 1.1rem;
+  }
+
+  .player-container .song-title {
+    font-size: 1rem;
+  }
+
+  .player-container .btn-prev,
+  .player-container .btn-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .player-container .btn-playpause {
+    width: 48px;
+    height: 48px;
+  }
+}
 
   .title {
     font-size: 1.1rem;

@@ -108,9 +108,22 @@ function applyFont(font) {
   document.body.style.fontFamily = font;
 }
 
-document.getElementById('view-mode').addEventListener('change', function() {
-document.body.classList.remove('view-mobile', 'view-tablet', 'view-desktop');
-document.body.classList.add(`view-${this.value}`);
+const viewModeSelect = document.getElementById('view-mode');
+const playerContainer = document.querySelector('.player-container');
+
+viewModeSelect.addEventListener('change', () => {
+  const mode = viewModeSelect.value;
+
+  // Reset semua mode
+  playerContainer.classList.remove('view-mobile', 'view-tablet', 'view-desktop');
+
+  if (mode === 'mobile') {
+    playerContainer.classList.add('view-mobile');
+  } else if (mode === 'tablet') {
+    playerContainer.classList.add('view-tablet');
+  } else if (mode === 'desktop') {
+    playerContainer.classList.add('view-desktop');
+  }
 });
 
 // ==================== TOGGLE BEHAVIOR ====================
