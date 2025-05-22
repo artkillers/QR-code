@@ -13,7 +13,7 @@
   <div class="float-toggle" id="floatToggle" title="Toggle Floating Player"><i class="fas fa-window-maximize"></i></div>
   
   <div class="player-container">
-    <img src="picture.png" alt="Cover Art" class="cover" />
+    <img src="picture.png" oncontextmenu="return false;" ondragstart="return false;" style="pointer-events: none;">alt="alchemistream" class="cover" />
     <div class="title">Alchemist Stream</div>
     <div id="songTitle" class="song-title">Sound Track</div>
 
@@ -70,6 +70,14 @@
     </select>
   </div>
 
-  <audio id="audio" preload="metadata"></audio>
+<audio id="audio" preload="metadata"></audio>
 </body>
+<script>
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey && ['c', 'a', 'x', 's', 'u'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+    }
+  });
+</script>
 </html>
