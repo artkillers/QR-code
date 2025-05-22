@@ -61,8 +61,10 @@ function formatTime(seconds) {
 // ==================== PLAYLIST CONTROL ====================
 
 const playlist = [
-  { title: "Sound Track", src: "audio.mp3" },
-  { title: "Sound Track", src: "musik.mp3" },
+  { title: "Sound Track", src: "strangers.mp3" },
+  { title: "Sound Track", src: "mistake.mp3" },
+  { title: "Sound Track", src: "sucks.mp3" },
+  { title: "Sound Track", src: "without.mp3" }
 ];
 
 let currentTrack = 0;
@@ -86,7 +88,7 @@ document.getElementById("btnPrev").addEventListener("click", () => {
   audio.play();
 });
 
-// ========== UI SETTINGS ( MODE | THEME | FONT) ===========
+// ========== UI SETTINGS ( THEME AND FONT ) ===========
 
 themeSelect.addEventListener('change', e => {
   const theme = e.target.value;
@@ -107,24 +109,6 @@ function applyTheme(theme) {
 function applyFont(font) {
   document.body.style.fontFamily = font;
 }
-
-const viewModeSelect = document.getElementById('view-mode');
-const playerContainer = document.querySelector('.player-container');
-
-viewModeSelect.addEventListener('change', () => {
-  const mode = viewModeSelect.value;
-
-  // Reset semua mode
-  playerContainer.classList.remove('view-mobile', 'view-tablet', 'view-desktop');
-
-  if (mode === 'mobile') {
-    playerContainer.classList.add('view-mobile');
-  } else if (mode === 'tablet') {
-    playerContainer.classList.add('view-tablet');
-  } else if (mode === 'desktop') {
-    playerContainer.classList.add('view-desktop');
-  }
-});
 
 // ==================== TOGGLE BEHAVIOR ====================
 

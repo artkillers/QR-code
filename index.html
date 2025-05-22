@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
+
+  <div class="float-toggle" id="floatToggle" title="Toggle Floating Player"><i class="fas fa-window-maximize"></i></div>
+  
   <div class="player-container">
     <img src="picture.png" alt="Cover Art" class="cover" />
     <div class="title">Alchemist Stream</div>
@@ -47,7 +50,6 @@
   </div>
 
   <div class="settings-toggle" id="settingsToggle"><i class="fas fa-cog"></i></div>
-  <div class="float-toggle" id="floatToggle" title="Toggle Floating Player"><i class="fas fa-window-maximize"></i></div>
 
   <div class="settings-panel" id="settingsPanel">
     <label for="themeSelect">Theme</label>
@@ -65,14 +67,6 @@
       <option value="'Georgia', serif">Georgia</option>
       <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
       <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
-    </select>
-    
-    <label for="view-mode">View Mode</label>
-    <select id="view-mode">
-      <option value="auto">Auto</option>
-      <option value="mobile">Mobile</option>
-      <option value="tablet">Tablet</option>
-      <option value="desktop">Desktop</option>
     </select>
   </div>
 

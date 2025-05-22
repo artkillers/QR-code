@@ -5,6 +5,81 @@
   padding: 0;
 }
 
+:root {
+  --accent-color-dark: #fff;
+  --accent-color-light: #000;
+}
+
+/* Responsif terhadap tema */
+body {
+  --accent-color: var(--accent-color-dark);
+}
+
+body.light {
+  --accent-color: var(--accent-color-light);
+}
+
+/* Profil section */
+.typed-text {
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  min-height: 24px;
+}
+
+/* Tombol tab aktif & hover pakai accent color */
+.tab-btn.active,
+.tab-btn:hover {
+  background: var(--accent-color);
+  color: inherit;
+  transform: translateY(-2px);
+}
+
+/* Ikon sosial media */
+.socials a {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.socials a:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
+}
+
+/* Text dan background tab-content sesuai tema */
+.tab-content {
+  background: inherit;
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.light .tab-content {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Profile description teks sesuai tema */
+.profile p {
+  color: inherit;
+  opacity: 0.75;
+}
+
+/* Tombol tab mengikuti style 3D */
+.tab-btn {
+  background: #1a1a1a;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: inherit;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.7), -4px -4px 8px rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+body.light .tab-btn {
+  background: #eaeaea;
+  box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #121212;
@@ -257,6 +332,7 @@ body.light .settings-panel select {
 }
 
 /* ===== Floating Mode ===== */
+
 .player-container.hidden {
   opacity: 0;
   pointer-events: none;
@@ -292,36 +368,35 @@ body.light .settings-panel select {
 
 /* ===== Responsive ===== */
 
-@media (max-width: 480px) {
-  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
-    max-width: 360px;
-    padding: 10px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-}
-@media (min-width: 481px) and (max-width: 768px) {
-  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
-    max-width: 720px;
-    padding: 14px;
-  }
-}
-@media (min-width: 769px) {
-  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
-    max-width: 1024px;
-    padding: 18px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @media (max-width: 768px) {
-  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
+  .player-container {
     width: 90%;
     padding: 16px;
   }
 }
 
-@media (max-width: 400px) {
-  .player-container:not(.view-mobile):not(.view-tablet):not(.view-desktop) {
-    width: 95%;
-    padding: 12px;
+@media (max-width: 480px) {
+  .player-container {
+    max-width: 80%;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .player-container {
+    width: 70%;
+    padding: 10px;
   }
 
   .player-container .title {
@@ -342,8 +417,6 @@ body.light .settings-panel select {
     width: 48px;
     height: 48px;
   }
-}
-
   .title {
     font-size: 1.1rem;
   }
@@ -360,5 +433,17 @@ body.light .settings-panel select {
   .btn-playpause {
     width: 48px;
     height: 48px;
+    .profile h1 {
+    font-size: 1.2rem;
   }
+
+  .tab-btn {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+
+  .tab-content {
+    padding: 16px;
+  }
+}
 }
