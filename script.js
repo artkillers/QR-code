@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Toggle player
   floatToggle.addEventListener("click", e => {
     e.stopPropagation();
-    player.style.display = player.style.display === "block" ? "none" : "block";
+    player.style.display = player.style.display === "flex" ? "none" : "flex";
   });
 
   // Toggle settings
