@@ -61,10 +61,10 @@ function formatTime(seconds) {
 // ==================== PLAYLIST CONTROL ====================
 
 const playlist = [
-  { title: "Sound Track", src: "strangers.mp3" },
-  { title: "Sound Track", src: "mistake.mp3" },
-  { title: "Sound Track", src: "sucks.mp3" },
-  { title: "Sound Track", src: "without.mp3" }
+  { title: "Strangers", src: "strangers.mp3" },
+  { title: "Mistake", src: "mistake.mp3" },
+  { title: "Sucks", src: "sucks.mp3" },
+  { title: "Without", src: "without.mp3" }
 ];
 
 let currentTrack = 0;
