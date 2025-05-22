@@ -124,32 +124,30 @@ document.addEventListener("DOMContentLoaded", () => {
   applyTheme(savedTheme);
   applyFont(savedFont);
 
-  // Tambahkan class awal
-  player.classList.add("hidden");
+  // Sembunyikan player & settings saat awal
+  player.style.display = "none";
+  settingsPanel.style.display = "none";
 
-  // Toggle player floating
+  // Toggle player
   floatToggle.addEventListener("click", e => {
     e.stopPropagation();
-    player.classList.toggle("floating");
-    player.classList.toggle("hidden");
+    player.style.display = player.style.display === "block" ? "none" : "block";
   });
 
-  // Toggle settings panel
-  settingsPanel.style.display = "none";
+  // Toggle settings
   settingsToggle.addEventListener("click", e => {
     e.stopPropagation();
-    const isVisible = settingsPanel.style.display === "block";
-    settingsPanel.style.display = isVisible ? "none" : "block";
+    settingsPanel.style.display = settingsPanel.style.display === "block" ? "none" : "block";
   });
 
-  // Klik di luar untuk tutup
+  // Klik di luar untuk tutup semua
   document.addEventListener("click", e => {
     if (!player.contains(e.target) && !floatToggle.contains(e.target)) {
-      player.classList.add("hidden");
-      player.classList.remove("floating");
+      player.style.display = "none";
     }
     if (!settingsPanel.contains(e.target) && !settingsToggle.contains(e.target)) {
       settingsPanel.style.display = "none";
     }
   });
 });
+
